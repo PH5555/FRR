@@ -1,4 +1,5 @@
 import React from "react";
+import roomImg from "./assets/roomImg.png";
 import styled from "styled-components";
 import { GlobalCSS } from "./components/GlobalCSS";
 import { RootRouter } from "./routers/RootRouter";
@@ -7,6 +8,7 @@ const App = () => {
   return (
     <Container>
       <RootRouter/>
+      <MainImage src={roomImg}/>
       <GlobalCSS/>
     </Container>
   );
@@ -19,4 +21,12 @@ const Container = styled.div`
   min-height: 100%;
   display: flex;
   flex-direction: column;
+`;
+
+const MainImage = styled.img`
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 0;
+  opacity: 0.5;
 `;

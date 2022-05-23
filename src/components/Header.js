@@ -12,9 +12,9 @@ import styled from "styled-components";
 
 export const Header = () => {
   const location = useLocation();
-  
+  const bg = location.pathname === ItemReservationDomain ? "#000" : "none";
   return (
-    <Container>
+    <Container bg={bg}>
       <Logo/>
       <NavCover>
         <Text to={RoomReservationDomain} color={location.pathname === RoomReservationDomain ? "#FF3939" : "#FFFFFF"}>
@@ -30,8 +30,10 @@ export const Header = () => {
 
 const Container = styled.div`
   display: flex;
-  margin: 8px 0 auto 0;
+  margin: auto 0;
   width: 100%;
+  z-index: 1;
+  background-color: ${props => props.bg};;
 `;
 
 const NavCover = styled.div`

@@ -15,6 +15,7 @@ export const GlobalCSS = createGlobalStyle`
 
   body {
     max-width: 1920px;
+    max-height: 1080px;
     margin: auto;
     font-size: 14px;
     font-weight: 400;

@@ -1,4 +1,5 @@
 import React from "react";
+import { SeatSelector } from "../components/SeatSelector";
 import { SeatStatus } from "../components/SeatStatus";
 import styled from "styled-components";
 
@@ -7,9 +8,7 @@ export const RoomReservation = () => {
     <Container>
       <Cover>
         <SeatStatus/>
-        <Select>
-          여기 선택창 들어감
-        </Select>
+        <SeatSelector/>
       </Cover>
     </Container>
   );

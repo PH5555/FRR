@@ -1,11 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import {GlobalCSS} from "./components/GlobalCSS";
+import { GlobalCSS } from "./components/GlobalCSS";
+import { RootRouter } from "./routers/RootRouter";
 
 const App = () => {
   return (
     <Container>
-      <GlobalCSS />FRR
+      <RootRouter/>
+      <GlobalCSS/>
     </Container>
   );
 }

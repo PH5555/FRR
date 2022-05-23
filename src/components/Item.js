@@ -2,10 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 export const Item = (props) => {
-  const {item} = props;
-  console.log(item);
+  const {item, onClick} = props;
   return (
-    <Container>
+    <Container onClick={() => onClick(item.name)}>
       <Img src={item.img}/>
       <Text>{item.name}</Text>
     </Container>
@@ -16,11 +15,15 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   background-color: #FFFFFF;
-  width: 200px;
-  height: 280px;
+  max-width: 170px;
+  max-height: 250px;
   margin: 10px 20px;
   border-radius: 8px;
-  padding: 0 10px 20px 10px;
+  padding: 10px 30px 20px 30px;
+  
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Text = styled.div`

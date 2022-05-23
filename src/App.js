@@ -25,8 +25,9 @@ const Container = styled.div`
 
 const MainImage = styled.img`
   width: 100%;
-  height: 100%;
+  height: 1080px;
   position: absolute;
   z-index: 0;
   opacity: 0.5;
+  left: 0;
 `;

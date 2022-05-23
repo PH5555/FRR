@@ -16,11 +16,12 @@ export const TextBoxWithBorder = (props) => {
   }
   
   const disabled = onChange === undefined ?? false;
-  
   const width = getSize();
+  const textWidth = width - 50;
+  
   return (
     <Block width={width}>
-      <Text value={text} width={width - 50} onChange={onChange} disabled={disabled}/>
+      <Text value={text || ""} width={textWidth} onChange={onChange} disabled={disabled}/>
       <SvgCover>
         <CloseSvg/>
       </SvgCover>

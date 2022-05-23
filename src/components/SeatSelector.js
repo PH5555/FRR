@@ -44,8 +44,3 @@ const SelectedBox = styled.div`
 const Text = styled.div`
   font-weight: 700;
 `;
-
-const Input = styled.input`
-  background-color: transparent;
-  border: none;
-`;

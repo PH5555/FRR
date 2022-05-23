@@ -10,6 +10,9 @@ module.exports = {
   entry: {
     app: ['./src/index.js'],
   },
+  devServer :{
+    historyApiFallback: true,
+  },
   module: {
     rules: [{
       test: /\.js?/,

@@ -1,2 +1,2 @@
-export const RoomReservationDomain = '/reservation/room';
-export const ItemReservationDomain = '/reservation/item';
+export const RoomReservationDomain = '/room';
+export const ItemReservationDomain = '/item';

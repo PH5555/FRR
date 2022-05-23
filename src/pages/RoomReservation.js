@@ -1,15 +1,14 @@
 import React from "react";
+import { SeatStatus } from "../components/SeatStatus";
 import styled from "styled-components";
 
 export const RoomReservation = () => {
   return (
     <Container>
       <Cover>
-        <Table>
-          여기 좌석 들어감
-        </Table>
+        <SeatStatus/>
         <Select>
-        여기 선택창 들어감
+          여기 선택창 들어감
         </Select>
       </Cover>
     </Container>
@@ -31,10 +30,6 @@ const Cover = styled.div`
   margin-top: 320px;
   z-index: 1;
   padding: 90px 0;
-`;
-
-const Table = styled.div`
-
 `;
 
 const Select = styled.div``;

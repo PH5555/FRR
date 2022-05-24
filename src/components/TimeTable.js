@@ -1,4 +1,7 @@
-import React from "react";
+import React, {
+  useEffect,
+  useState
+} from "react";
 import {
   dummyTimeTable,
   time
@@ -7,12 +10,28 @@ import { TimeBox } from "../components/TimeBox";
 import styled from "styled-components";
 
 export const TimeTable = (props) => {
-  const {item} = props;
-  const timeTable = item.timeTable ? item.timeTable : dummyTimeTable;
+  const {item, selectedTime, onClick} = props;
+  const getTimeTable = () => {
+    const t = item.timeTable ? item.timeTable : dummyTimeTable;
+  
+    // 선택되어있는 경우 선택으로 변경
+    selectedTime.map(time => {
+      t[time.day].selected[time.time] = true;
+    })
+    return t;
+  }
+  
+  const [timeTable, setTimetable] = useState(getTimeTable());
+  
+  useEffect(() => {
+    setTimetable(getTimeTable());
+  })
+  
   const timeList = time.map((t, i) => {
     const r = (10 + i) % 12;
     return r === 0 ? 12 : r;
   });
+  
   return (
     <Container>
       <div>
@@ -25,11 +44,26 @@ export const TimeTable = (props) => {
         <Day>수</Day>
         <Day>목</Day>
         <Day>금</Day>
-        {timeTable.mon.map((t, i) => <TimeBox key={i} selected={false} reserved={t}/>)}
-        {timeTable.tue.map((t, i) => <TimeBox key={i} selected={false} reserved={t}/>)}
-        {timeTable.wed.map((t, i) => <TimeBox key={i} selected={false} reserved={t}/>)}
-        {timeTable.thu.map((t, i) => <TimeBox key={i} selected={false} reserved={t}/>)}
-        {timeTable.fri.map((t, i) => <TimeBox key={i} selected={false} reserved={t}/>)}
+        <div>
+          {timeTable.mon.reserved.map((t, i) =>
+            <TimeBox key={i} day="mon" time={i} selected={timeTable.mon.selected[i]} reserved={t} onClick={onClick}/>)}
+        </div>
+        <div>
+          {timeTable.tue.reserved.map((t, i) =>
+            <TimeBox key={i} day="tue" time={i} selected={timeTable.tue.selected[i]} reserved={t} onClick={onClick}/>)}
+        </div>
+        <div>
+          {timeTable.wed.reserved.map((t, i) =>
+            <TimeBox key={i} day="wed" time={i} selected={timeTable.wed.selected[i]} reserved={t} onClick={onClick}/>)}
+        </div>
+        <div>
+          {timeTable.thu.reserved.map((t, i) =>
+            <TimeBox key={i} day="thu" time={i} selected={timeTable.thu.selected[i]} reserved={t} onClick={onClick}/>)}
+        </div>
+        <div>
+          {timeTable.fri.reserved.map((t, i) =>
+            <TimeBox key={i} day="fri" time={i} selected={timeTable.fri.selected[i]} reserved={t} onClick={onClick}/>)}
+        </div>
       </Box>
     </Container>
   );

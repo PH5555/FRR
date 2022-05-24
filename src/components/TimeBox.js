@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 export const TimeBox = (props) => {
-  const {selected, reserved, text} = props;
+  const {day, time, selected, reserved, text, onClick} = props;
+  const [isSelected, setIsSelected] = useState(selected);
   const setColor = () => {
     if (selected) {
       return "#282828";
@@ -13,7 +14,16 @@ export const TimeBox = (props) => {
     return "transparent";
   }
   const color = setColor();
-  return <Block bg={color}>{text}</Block>
+  
+  const onClickTime = () => {
+    if (selected || reserved) {
+      return;
+    }
+    setIsSelected(!isSelected);
+    onClick(day, time);
+  }
+  
+  return <Block bg={color} onClick={onClickTime}>{text}</Block>
 }
 
 const Block = styled.div`
@@ -21,7 +31,7 @@ const Block = styled.div`
   border: 2px solid #282828;
   width: 101px;
   height: 35px;
-  
+
   &:hover {
     cursor: pointer;
   }

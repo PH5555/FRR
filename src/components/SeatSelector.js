@@ -3,8 +3,8 @@ import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
 import styled from "styled-components";
 
-export const SeatSelector = () => {
-  const [name, setName] = useState('');
+export const SeatSelector = (props) => {
+  const {selected, name, setName} = props;
   
   const onChange = (event) => {
     setName(event.target.value);
@@ -14,8 +14,7 @@ export const SeatSelector = () => {
     <Container>
       <Text>선택한 좌석:</Text>
       <SelectedBox>
-        <TextBoxWithBorder text="A3" size="small"/>
-        <TextBoxWithBorder text="B3" size="small"/>
+        <TextBoxWithBorder text={selected} size="small"/>
       </SelectedBox>
       <Text>신청자 이름:</Text>
       <SelectedBox>

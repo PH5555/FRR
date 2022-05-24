@@ -19,6 +19,10 @@ export const TextBoxWithBorder = (props) => {
   const width = getSize();
   const textWidth = width - 50;
   
+  const onClickClose = () => {
+    // todo - close 버튼 눌렀을때 내용 삭제 기능 구현
+  }
+  
   return (
     <Block width={width}>
       <Text value={text || ""} width={textWidth} onChange={onChange} disabled={disabled}/>

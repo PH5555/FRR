@@ -11,3 +11,13 @@ export const itemData = Array(30).fill({
     fri: [false, false, false, false, false, false, false, false, false, false, true, false, false],
   }
 });
+
+export const dummyTimeTable = {
+  mon: Array(13).fill(false),
+  tue: Array(13).fill(false),
+  wed: Array(13).fill(false),
+  thu: Array(13).fill(false),
+  fri: Array(13).fill(false),
+};
+
+export const time = Array(13).fill(10);

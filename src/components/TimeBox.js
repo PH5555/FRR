@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 export const TimeBox = (props) => {
-  const {selected, reserved} = props;
+  const {selected, reserved, text} = props;
   const setColor = () => {
     if (selected) {
       return "#282828";
@@ -13,10 +13,16 @@ export const TimeBox = (props) => {
     return "transparent";
   }
   const color = setColor();
-  return <Block bg={color}/>
+  return <Block bg={color}>{text}</Block>
 }
 
 const Block = styled.div`
   background-color: ${props => props.bg};
-  border: 5px solid #282828;
+  border: 2px solid #282828;
+  width: 101px;
+  height: 35px;
+  
+  &:hover {
+    cursor: pointer;
+  }
 `;

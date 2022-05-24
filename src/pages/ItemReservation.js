@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { itemData } from "../constants/sample";
+import {
+  itemData,
+  time
+} from "../constants/sample";
 import { TimeTable } from "../components/TimeTable";
 import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
@@ -10,7 +13,6 @@ const items = itemData;
 export const ItemReservation = () => {
   const [selectedItem, setSelectedItem] = useState('');
   const [name, setName] = useState('');
-  const [selectedTime, setSelectedTime] = useState([]);
   
   const onClickItem = (name) => {
     const i = items.find(i => i.name === name);
@@ -20,7 +22,6 @@ export const ItemReservation = () => {
   const onChange = (event) => {
     setName(event.target.value);
   }
-  
   return (
     <Container>
       <Items>
@@ -32,7 +33,7 @@ export const ItemReservation = () => {
           <TextBoxWithBorder text={selectedItem.name}/>
         </SelectCover>
         <Text style={{marginBottom: '20px'}}>사용날짜 선택: </Text>
-        <TimeTable item={selectedItem} selectedTime={selectedTime}/>
+        <TimeTable item={selectedItem} />
         <InputCover>
           <Text>신청자 이름: </Text>
           <TextBoxWithBorder text={name} onChange={onChange}/>

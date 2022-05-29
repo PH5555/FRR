@@ -15,7 +15,9 @@ export const Header = () => {
   const bg = location.pathname === ItemReservationDomain ? "#000" : "none";
   return (
     <Container bg={bg}>
-      <Logo/>
+      <LogoCover to={'/'}>
+        <Logo/>
+      </LogoCover>
       <NavCover>
         <Text to={RoomReservationDomain} color={location.pathname === RoomReservationDomain ? "#FF3939" : "#FFFFFF"}>
           자리 예약
@@ -54,5 +56,12 @@ const Text = styled(Link)`
     cursor: pointer;
     color: #FF3939;
     transition: all 1s;
+  }
+`;
+
+const LogoCover = styled(Link)`
+  text-decoration: none;
+  &:hover {
+    cursor: pointer;
   }
 `;

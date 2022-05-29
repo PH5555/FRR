@@ -16,10 +16,15 @@ export const GlobalCSS = createGlobalStyle`
   body {
     max-width: 1920px;
     max-height: 1080px;
+    height: 100%;
     margin: auto;
     font-size: 14px;
     font-weight: 400;
     background-color: #000000;
     color: #ffffff;
+  }
+  
+  #root {
+    height: 100%;
   }
 `

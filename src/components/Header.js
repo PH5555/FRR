@@ -34,8 +34,8 @@ const Container = styled.div`
   display: flex;
   margin: auto 0;
   width: 100%;
-  z-index: 1;
-  background-color: ${props => props.bg};;
+  z-index: 3;
+  background-color: ${props => props.bg};
 `;
 
 const NavCover = styled.div`

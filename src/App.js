@@ -9,7 +9,8 @@ const App = () => {
     <Container>
       <RootRouter/>
       <MainImage src={roomImg}/>
-      <GlobalCSS/>
+      <GlobalCSS
+      />
     </Container>
   );
 }

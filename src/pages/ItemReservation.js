@@ -5,6 +5,7 @@ import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
 import { Item } from "../components/Item";
 import styled from "styled-components";
+import { gettb1,gettb2,appendtb1,appendtb2,erasetb1,erasetb2,updatetb1,updatetb2 } from "../back/requesttb1";
 
 export const ItemReservation = () => {
   const [selectedItem, setSelectedItem] = useState('');
@@ -13,6 +14,7 @@ export const ItemReservation = () => {
   
   const onClickTable = (day, time) => {
     // todo - 물품(item) 선택 안되었을때 시간표 누르면 선택 안되도록 수정
+    console.log(appendtb1());
     setSelectedTime(selectedTime.concat({day, time}));
   }
   

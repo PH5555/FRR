@@ -15,7 +15,8 @@ const firebaseApp=initializeApp( {
 //const db = getFirestore();
 //import { collection, addDoc } from "firebase/firestore";
 const db = getFirestore();
-
+const id="bbFdxyQ3L8KGoEJIp7uy";
+const dt="Mon3";
 
 // Get a list of cities from your database
 async function gettb1() {
@@ -34,6 +35,7 @@ async function gettb2() {
 }
 
 
+/*
 async function appendtb1(){
 try {
   const docRef = await addDoc(collection(db, "faculty_reservation"), {
@@ -64,10 +66,10 @@ async function appendtb2(){
     console.error("Error adding document: ", e);
   }//make server
   }
-
-async function updatetb1(){
-  const x=doc(db,"faculty_reservation","Lfi1zGmgtNIaeWbQ08X0");
-  await updateDoc(x,{type:"x"});
+*/
+async function updatetb1(id,dt){
+  const x=doc(db,"faculty_reservation",id);
+  await updateDoc(x,{date_time:dt});
 }//update(db,table_name,id)
 async function updatetb2(db){
   const y=doc(db,"seat_reservation","1NNCq0TqiSNZ77689PbZ");
@@ -80,4 +82,4 @@ async function erasetb2(){
   await deleteDoc(doc(db, "seat_reservation", "1NNCq0TqiSNZ77689PbZ"));
 }
 
-export{gettb1,gettb2,appendtb1,appendtb2,erasetb1,erasetb2,updatetb1,updatetb2};
+export{gettb1,gettb2,erasetb1,erasetb2,updatetb1,updatetb2};

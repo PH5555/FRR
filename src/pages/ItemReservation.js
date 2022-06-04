@@ -14,7 +14,9 @@ export const ItemReservation = () => {
 
   const onClickTable = (day, time) => {
     // todo - 물품(item) 선택 안되었을때 시간표 누르면 선택 안되도록 수정
-    setSelectedTime(selectedTime.concat({ day, time }));
+    selectedItem === ""
+      ? alert("물품 먼저 선택해주세요.")
+      : setSelectedTime(selectedTime.concat({ day, time }));
   };
 
   const onClickItem = (name) => {

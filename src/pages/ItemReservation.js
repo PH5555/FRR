@@ -5,6 +5,7 @@ import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
 import { Item } from "../components/Item";
 import styled from "styled-components";
+import {getFacInfo,getSeatInfo,reserveFaculty,reserveSeat, setFaculty } from "../firebase/index.js";
 
 export const ItemReservation = () => {
   const [selectedItem, setSelectedItem] = useState('');
@@ -13,6 +14,7 @@ export const ItemReservation = () => {
   
   const onClickTable = (day, time) => {
     // todo - 물품(item) 선택 안되었을때 시간표 누르면 선택 안되도록 수정
+
     setSelectedTime(selectedTime.concat({day, time}));
   }
   
@@ -81,7 +83,7 @@ const Items = styled.div`
   gap: 20px;
   margin: 20px 30px 20px 10px;
 
-  @media (max-width: 1528px) {
+  @media (max-width: 1528px) {s
     grid-template-columns: repeat(3, 1fr);
   }
 

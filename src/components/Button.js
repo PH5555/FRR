@@ -2,15 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 export const Button = (props) => {
-  const {text, onClick} = props;
+
+  const { text, onClick } = props;
   return (
     <ButtonBox onClick={onClick}>
-      <Text>
-        {text}
-      </Text>
+      <Text>{text}</Text>
     </ButtonBox>
   );
-}
+};
 
 const ButtonBox = styled.div`
   align-items: center;
@@ -18,7 +17,7 @@ const ButtonBox = styled.div`
   justify-content: center;
   width: 217px;
   height: 52px;
-  background: #FF3939;
+  background: #ff3939;
   border-radius: 17px;
 
   &:hover {

@@ -71,7 +71,7 @@ export const ItemReservation = () => {
       <TimeTableBox>
         <SelectCover>
           <Text>선택한 물품: </Text>
-          <TextBoxWithBorder text={selectedItem.name} onReset />
+          <TextBoxWithBorder text={selectedItem.name} />
         </SelectCover>
         <Text style={{ marginBottom: "20px" }}>사용날짜 선택: </Text>
         <TimeTable

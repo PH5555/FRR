@@ -1,4 +1,12 @@
-import React, { useState } from "react";
+import React, {
+  useEffect,
+  useState
+} from "react";
+import {
+  useItemDispatch,
+  useItemState
+} from "../context/itemContext";
+import { getFacultyInfo } from "../firebase";
 import { itemData } from "../constants/sample";
 import { TimeTable } from "../components/TimeTable";
 import { Button } from "../components/Button";
@@ -11,69 +19,73 @@ export const ItemReservation = () => {
   const [selectedTime, setSelectedTime] = useState([]);
   const [reservedTime, setReservedTime] = useState([]);
   const [name, setName] = useState("");
-
+  
+  const state = useItemState();
+  const dispatch = useItemDispatch();
+  const [itemList, setItemList] = useState(state);
+  
+  const fetch = async () => {
+    const newItems = await getFacultyInfo();
+    dispatch({type: 'GET_ITEMS', data: newItems});
+  };
+  
+  useEffect(() => {
+    fetch();
+  }, []);
+  
+  useEffect(() => {
+    setItemList(state);
+  }, [state]);
+  
   const onClickTable = (day, time) => {
     // todo - 물품(item) 선택 안되었을때 시간표 누르면 선택 안되도록 수정
     selectedItem === ""
       ? alert("물품 먼저 선택해주세요.")
-      : setSelectedTime(selectedTime.concat({ day, time }));
+      : setSelectedTime(selectedTime.concat({day, time}));
   };
-
+  
   const onClickItem = (name) => {
-    const i = items.find((i) => i.name === name);
+    const i = itemList.find((i) => i.name === name);
     setSelectedItem(i);
     setSelectedTime([]);
   };
-
+  
   const onChange = (event) => {
     setName(event.target.value);
   };
-
+  
   const onClickReservation = () => {
     // todo - 예약하기 버튼 눌렀을 때 기능 구현
     if (name === "") {
       alert("신청자 이름을 입력해주세요");
       return;
     }
-
+    
     if (selectedTime.length === 0) {
       alert("시간을 선택해주세요");
       return;
     }
+    
     setReservedTime(selectedTime);
   };
   
   const onReset = () => {
     setName('');
   };
-
-  const items = itemData.map((item) => {
-    // 선택된 칸 초기화
-    return {
-      ...item,
-      timeTable: {
-        mon: { reserved: item.timeTable.mon, selected: Array(13).fill(false) },
-        tue: { reserved: item.timeTable.tue, selected: Array(13).fill(false) },
-        wed: { reserved: item.timeTable.wed, selected: Array(13).fill(false) },
-        thu: { reserved: item.timeTable.thu, selected: Array(13).fill(false) },
-        fri: { reserved: item.timeTable.fri, selected: Array(13).fill(false) },
-      },
-    };
-  });
-
+  
   return (
     <Container>
       <Items>
-        {items.map((item, i) => (
-          <Item key={i} item={item} onClick={onClickItem} />
+        {itemList.map((item, i) => (
+          <Item key={i} item={item} onClick={onClickItem}/>
         ))}
       </Items>
       <TimeTableBox>
         <SelectCover>
           <Text>선택한 물품: </Text>
-          <TextBoxWithBorder text={selectedItem.name} />
+          <TextBoxWithBorder text={selectedItem.name}/>
         </SelectCover>
-        <Text style={{ marginBottom: "20px" }}>사용날짜 선택: </Text>
+        <Text style={{marginBottom: "20px"}}>사용날짜 선택: </Text>
         <TimeTable
           item={selectedItem}
           selectedTime={selectedTime}
@@ -84,7 +96,7 @@ export const ItemReservation = () => {
           <Text>신청자 이름: </Text>
           <TextBoxWithBorder text={name} onChange={onChange} onReset={onReset}/>
         </InputCover>
-        <Button text="예약하기" onClick={onClickReservation} />
+        <Button text="예약하기" onClick={onClickReservation}/>
       </TimeTableBox>
     </Container>
   );
@@ -105,7 +117,7 @@ const Items = styled.div`
   gap: 20px;
   margin: 20px 30px 20px 10px;
 
-  @media (max-width: 1528px) {s
+  @media (max-width: 1528px) {
     grid-template-columns: repeat(3, 1fr);
   }
 

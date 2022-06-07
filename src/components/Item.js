@@ -4,9 +4,9 @@ import styled from "styled-components";
 export const Item = (props) => {
   const {item, onClick} = props;
   return (
-    <Container onClick={() => onClick(item.name)}>
-      <Img src={item.img}/>
-      <Text>{item.name}</Text>
+    <Container onClick={() => onClick(item?.name)}>
+      <Img src={item?.img}/>
+      <Text>{item?.name}</Text>
     </Container>
   );
 }

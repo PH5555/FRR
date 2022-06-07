@@ -1,4 +1,5 @@
 import React from "react";
+import { ItemProvider } from "./context/itemContext";
 import roomImg from "./assets/roomImg.png";
 import styled from "styled-components";
 import { GlobalCSS } from "./components/GlobalCSS";
@@ -7,7 +8,9 @@ import { RootRouter } from "./routers/RootRouter";
 const App = () => {
   return (
     <Container>
-      <RootRouter/>
+      <ItemProvider>
+        <RootRouter/>
+      </ItemProvider>
       <MainImage src={roomImg}/>
       <GlobalCSS
       />

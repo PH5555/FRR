@@ -8,62 +8,23 @@ export const SeatStatus = (props) => {
 
   // todo - db에서 자리 현황 데이터 가져와서 그거에 맞게 뿌려줘야하는데 어떻게 내려올지 아직 잘 모르겠음
   // todo - 자리 현황 데이터가 있으면 그 현황에 맞게 자리 색 달라지게 구현 : 현재 디폴트값은 예약 안된 #fff로 되어있음
-  /*const setColor = () =>{
-    if (True) {
-      return "#282828";
-    }
-    if (False) {
-      return {color};
-    }
-  }
-*/
 
-  // todo - 자리 예약했을때 자리 색 빨간색으로 바꾸도록 구현
-  // 색깔 바꾸는 건 했는데 그게 전체가 다 바뀌더라고요 근데 자리별로 구분을 하는 방법을 못 찾겠어서요...ㅎㅎ... 우선 이렇게라도 예약된 것만 바뀌게 했습니다
   const {onClick, seatColor} = props
-  //const [seatColor, setseatColor] = useState(['#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff','#fff']);
-
-  // const onClick = (event ,id) => {
-
-  //   console.log(id);
-
-  //   if (seatColor[id] === "#282828"){
-  //     alert("이미 예약된 좌석입니다.")
-  //   }
-  //   else{
-  //     let newArr = seatColor;
-  //     newArr[id] = newArr[id] === '#fff' ? 'red' : '#fff';
-  //     setseatColor(newArr);
-  //     console.log(seatColor);
-  //   }
-
-    // if(seatColor[id] == '#fff')
-    // {
-    //   seatSelected[id] = "A1";
-    //   console.log(seatSelected);
-    // }
-    // else{
-    //   seatSelected[id] = null;
-    // }
-  //} 
-
-  // useEffect(()=>{
-
-  // }, [seatColor]);
+  const color = ["#FFFFFF", "#282828", "#FF3939"]
 
   return (
     <Container>
       <ExplainCover>
         <SquareBox>
-          <Square size={30} color="#FFFFFF" hover={false}/>
+          <Square size={30} color={color} hover={false} id='0'/>
           <div>예약 가능한 좌석</div>
         </SquareBox>
         <SquareBox>
-          <Square size={30} color="#282828" hover={false}/>
+          <Square size={30} color={color} hover={false} id='1'/>
           <div>예약된 좌석</div>
         </SquareBox>
         <SquareBox>
-          <Square size={30} color="#FF3939" hover={false}/>
+          <Square size={30} color={color} hover={false} id='2'/>
           <div>예약한 좌석</div>
         </SquareBox>
       </ExplainCover>

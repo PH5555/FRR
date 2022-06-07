@@ -13,7 +13,6 @@ export const RoomReservation = () => {
   const [seatColor, setseatColor] = useState(['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff']);
 
   const onClickSeat = (event, id) => {
-    //다시 누르면 선택 취소, 선택된 좌석 id 변경해주기
     const changeId = id;
     if(selected !== '' && selected !== id) {
       alert("좌석은 1개만 선택 가능합니다.");
@@ -22,7 +21,6 @@ export const RoomReservation = () => {
     const newArr = seatColor;
     newArr[id] = (newArr[id] === '#fff' ? 'red' : '#fff');
     setseatColor(newArr);
-    console.log(seatColor);
     setSelected(changeId);
     if (seatColor[id] === "#282828") {
       alert("이미 예약된 좌석입니다.");

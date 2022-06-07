@@ -5,7 +5,7 @@ import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
 import { Item } from "../components/Item";
 import styled from "styled-components";
-import {getFacInfo,getSeatInfo,reserveFaculty,reserveSeat } from "../back/requesttb1";
+import {getFacInfo,getSeatInfo,reserveFaculty,reserveSeat, setFaculty } from "../back/requesttb1";
 
 export const ItemReservation = () => {
   const [selectedItem, setSelectedItem] = useState('');
@@ -17,8 +17,9 @@ export const ItemReservation = () => {
     //var name="Kim";
     var name="Kim"
     var Date_time=["Mon1","Mon2"];
-    var item="GEMBLO";
-    updatetb1(name,Date_time,item);
+    var item="Beam projector";
+    //reserveFaculty(name,Date_time,item);
+    setFaculty();
     //var seat_number="A1";
     //appendtb2(name,seat_number);
     setSelectedTime(selectedTime.concat({day, time}));
@@ -89,7 +90,7 @@ const Items = styled.div`
   gap: 20px;
   margin: 20px 30px 20px 10px;
 
-  @media (max-width: 1528px) {
+  @media (max-width: 1528px) {s
     grid-template-columns: repeat(3, 1fr);
   }
 

@@ -1,8 +1,7 @@
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
 import { collection, addDoc } from "firebase/firestore";
-import { deleteDoc } from "firebase/firestore";
-import { updateDoc, doc, getDocs, arrayUnion, query, where } from "firebase/firestore";
+import { updateDoc, getDocs, arrayUnion, where } from "firebase/firestore";
 const firebaseApp = initializeApp({
   piKey: "AIzaSyAkJrPoYX8dV76_2YCrWkV10CqNXnQ-oXc",
   authDomain: "frr-branch.firebaseapp.com",
@@ -25,7 +24,7 @@ async function getSeatInfo() {
   const seatCol = collection(db, 'seat_reservation');
   const seatSnapshot = await getDocs(seatCol);
   return seatSnapshot.docs.map(doc => doc.data());
-  
+
 }
 
 async function reserveSeat(pname, seatNumber) {
@@ -48,7 +47,7 @@ async function reserveFaculty(person, dateTime, item) {
     id = doc.id;
   });
   const doc = doc(db, "faculty_reservation", id);
-  await updateDoc(doc, { dateTime , personName: arrayUnion(person) });
+  await updateDoc(doc, { dateTime, personName: arrayUnion(person) });
 }
 
 async function setFaculty() {
@@ -66,7 +65,6 @@ async function setFaculty() {
     id = doc.id;
   });
   let doc = doc(db, "faculty_reservation", id);
-  console.log(doc);
   await updateDoc(doc, { dateTime });
 }
 

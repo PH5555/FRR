@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --mode development --history-api-fallback --open --hot --port 3000",
     "build": "webpack --mode production --progress",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "nodemon server"
   },
   "repository": {
     "type": "git",
@@ -14,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "nodemon": "^2.0.16",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router": "^6.3.0",

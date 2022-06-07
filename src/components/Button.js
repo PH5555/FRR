@@ -2,9 +2,9 @@ import React from "react";
 import styled from "styled-components";
 
 export const Button = (props) => {
-  const {text} = props;
+  const {text, onClick} = props;
   return (
-    <ButtonBox>
+    <ButtonBox onClick={onClick}>
       <Text>
         {text}
       </Text>

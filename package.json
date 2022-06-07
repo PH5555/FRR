@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "nodemon": "^2.0.16",
+    "firebase": "^9.8.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-router": "^6.3.0",

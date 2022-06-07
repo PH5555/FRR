@@ -20,6 +20,10 @@ export const SeatSelector = (props) => {
     seat = 'B' + (parseInt(selected / 2) + 1);
   }
   
+  const onReset = () => {
+    setName('');
+  };
+  
   return (
     <Container>
       <Text>선택한 좌석:</Text>
@@ -29,7 +33,7 @@ export const SeatSelector = (props) => {
       <Text>신청자 이름:</Text>
       <SelectedBox>
         <div>
-          <TextBoxWithBorder text={name} size="mid" onChange={onChange}/>
+          <TextBoxWithBorder text={name} size="mid" onChange={onChange} onReset={onReset} />
         </div>
       </SelectedBox>
       <Button text="예약하기" onClick={clickEvent}/>

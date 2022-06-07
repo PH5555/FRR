@@ -101,7 +101,7 @@ const Items = styled.div`
   gap: 20px;
   margin: 20px 30px 20px 10px;
 
-  @media (max-width: 1528px) {
+  @media (max-width: 1528px) {s
     grid-template-columns: repeat(3, 1fr);
   }
 

@@ -42,6 +42,10 @@ export const ItemReservation = () => {
     }
     setReservedTime(selectedTime);
   };
+  
+  const onReset = () => {
+    setName('');
+  };
 
   const items = itemData.map((item) => {
     // 선택된 칸 초기화
@@ -67,7 +71,7 @@ export const ItemReservation = () => {
       <TimeTableBox>
         <SelectCover>
           <Text>선택한 물품: </Text>
-          <TextBoxWithBorder text={selectedItem.name} />
+          <TextBoxWithBorder text={selectedItem.name} onReset />
         </SelectCover>
         <Text style={{ marginBottom: "20px" }}>사용날짜 선택: </Text>
         <TimeTable
@@ -78,7 +82,7 @@ export const ItemReservation = () => {
         />
         <InputCover>
           <Text>신청자 이름: </Text>
-          <TextBoxWithBorder text={name} onChange={onChange} />
+          <TextBoxWithBorder text={name} onChange={onChange} onReset={onReset}/>
         </InputCover>
         <Button text="예약하기" onClick={onClickReservation} />
       </TimeTableBox>

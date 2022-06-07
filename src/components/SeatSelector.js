@@ -10,6 +10,10 @@ export const SeatSelector = (props) => {
     setName(event.target.value);
   }
   
+  const onReset = () => {
+    setName('');
+  };
+  
   return (
     <Container>
       <Text>선택한 좌석:</Text>
@@ -19,7 +23,7 @@ export const SeatSelector = (props) => {
       <Text>신청자 이름:</Text>
       <SelectedBox>
         <div>
-          <TextBoxWithBorder text={name} size="mid" onChange={onChange}/>
+          <TextBoxWithBorder text={name} size="mid" onChange={onChange} onReset={onReset} />
         </div>
       </SelectedBox>
       <Button text="예약하기"/>

@@ -4,7 +4,6 @@ import styled from "styled-components";
 
 export const Square = (props) => {
   const {size, color, clickEvent, id} = props;
-
   let hover;
   if (props.hover === undefined) hover = true;
   return <Block size={size} color={color} id={id} hover={hover} onClick={(event)=>clickEvent(event, id)}>{props.text}</Block>;

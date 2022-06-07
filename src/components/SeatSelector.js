@@ -5,15 +5,26 @@ import styled from "styled-components";
 
 export const SeatSelector = (props) => {
   const {selected, name, setName, clickEvent} = props;
+  // const [SeatName, setSeatName] = useState('');
+
   const onChange = (event) => {
     setName(event.target.value);
+  }
+
+  let seat = '';
+  if(selected == ''){
+    seat = '';
+  }else if(selected % 2 == 0){
+    seat = 'A' + (parseInt(selected / 2) + 1);
+  }else{
+    seat = 'B' + (parseInt(selected / 2) + 1);
   }
   
   return (
     <Container>
       <Text>선택한 좌석:</Text>
       <SelectedBox>
-        <TextBoxWithBorder text={selected} size="small"/>
+        <TextBoxWithBorder text={seat} size="small"/>
       </SelectedBox>
       <Text>신청자 이름:</Text>
       <SelectedBox>

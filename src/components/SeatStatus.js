@@ -40,34 +40,34 @@ export const SeatStatus = (props) => {
             <Table size={"small"}/>
             <Chair>
               {/*A1, B1 자리*/}
-              <Square id ="0" clickEvent={onClick} size={50} color={seatColor}/>
-              <Square id ="1" clickEvent={onClick} size={50} color={seatColor}/>
+              <Square key="A1" id ="0" clickEvent={onClick} size={50} color={seatColor}/>
+              <Square key="B1" id ="1" clickEvent={onClick} size={50} color={seatColor}/>
             </Chair>
           </TableCover>
           <TableCover>
             <Chair>
               {/*A2, B2 자리*/}
-              <Square id ="2" clickEvent={onClick} size={50} color={seatColor}/>
-              <Square id ="3" clickEvent={onClick} size={50} color={seatColor}/>
+              <Square key="A2" id ="2" clickEvent={onClick} size={50} color={seatColor}/>
+              <Square key="B2" id ="3" clickEvent={onClick} size={50} color={seatColor}/>
             </Chair>
             <Table size={"large"}/>
             <Chair>
               {/*A3, B3 자리*/}
-              <Square id = "4" clickEvent={onClick} size={50} color={seatColor}/>
-              <Square id = "5"  clickEvent={onClick} size={50} color={seatColor}/>
+              <Square key="A3" id = "4" clickEvent={onClick} size={50} color={seatColor}/>
+              <Square key="B3" id = "5"  clickEvent={onClick} size={50} color={seatColor}/>
             </Chair>
           </TableCover>
           <TableCover>
             <Chair>
               {/*A4, B4 자리*/}
-              <Square id = "6" clickEvent={onClick} size={50} color={seatColor}/>
-              <Square id = "7" clickEvent={onClick} size={50} color={seatColor}/>
+              <Square key="A4" id = "6" clickEvent={onClick} size={50} color={seatColor}/>
+              <Square key="B4" id = "7" clickEvent={onClick} size={50} color={seatColor}/>
             </Chair>
             <Table size={"large"}/>
             <Chair>
               {/*A5, B5 자리*/}
-              <Square id = "8" clickEvent={onClick} size={50} color={seatColor}/>
-              <Square id = "9" clickEvent={onClick} size={50} color={seatColor}/>
+              <Square key="A5" id = "8" clickEvent={onClick} size={50} color={seatColor}/>
+              <Square key="B5" id = "9" clickEvent={onClick} size={50} color={seatColor}/>
             </Chair>
           </TableCover>
         </SeatBox>

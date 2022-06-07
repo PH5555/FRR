@@ -9,7 +9,7 @@ import styled from "styled-components";
 export const ItemReservation = () => {
   const [selectedItem, setSelectedItem] = useState("");
   const [selectedTime, setSelectedTime] = useState([]);
-  let [reservedTime, setReservedTime] = useState([]);
+  const [reservedTime, setReservedTime] = useState([]);
   const [name, setName] = useState("");
 
   const onClickTable = (day, time) => {
@@ -31,8 +31,16 @@ export const ItemReservation = () => {
 
   const onClickReservation = () => {
     // todo - 예약하기 버튼 눌렀을 때 기능 구현
-    reservedTime = selectedTime;
-    setReservedTime(reservedTime);
+    if (name === "") {
+      alert("신청자 이름을 입력해주세요");
+      return;
+    }
+
+    if (selectedTime.length === 0) {
+      alert("시간을 선택해주세요");
+      return;
+    }
+    setReservedTime(selectedTime);
   };
 
   const items = itemData.map((item) => {

@@ -33,5 +33,6 @@ const Text = styled.div`
 
 const Img = styled.img`
   height: 180px;
+  width: 120px;
   margin: auto;
 `;

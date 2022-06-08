@@ -39,6 +39,17 @@ const setTimeTable = (timeTable) => {
   return newTimeTable;
 };
 
+const resetSelected = (state) => {
+  return state.map(s => {
+    s.timeTable.mon.selected = Array(13).fill(false);
+    s.timeTable.tue.selected = Array(13).fill(false);
+    s.timeTable.wed.selected = Array(13).fill(false);
+    s.timeTable.thu.selected = Array(13).fill(false);
+    s.timeTable.fri.selected = Array(13).fill(false);
+    return s;
+  });
+};
+
 const itemReducer = (state, action) => {
   switch (action.type) {
     case 'GET_ITEMS': {
@@ -54,8 +65,9 @@ const itemReducer = (state, action) => {
     }
     case 'UPDATE_ITEM':
       return state;
-    case 'RESET':
-      return init(action.payload);
+    case 'RESET': {
+      return resetSelected(state);
+    }
     default:
       return state;
   }

@@ -7,7 +7,6 @@ import {
   useItemState
 } from "../context/itemContext";
 import { getFacultyInfo } from "../firebase";
-import { itemData } from "../constants/sample";
 import { TimeTable } from "../components/TimeTable";
 import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
@@ -39,13 +38,13 @@ export const ItemReservation = () => {
   
   const onClickTable = (day, time) => {
     // todo - 물품(item) 선택 안되었을때 시간표 누르면 선택 안되도록 수정
-    selectedItem === ""
-      ? alert("물품 먼저 선택해주세요.")
-      : setSelectedTime(selectedTime.concat({day, time}));
+    selectedItem === "" ? alert("물품 먼저 선택해주세요.") : setSelectedTime(selectedTime.concat({day, time}));
   };
   
   const onClickItem = (name) => {
     const i = itemList.find((i) => i.name === name);
+    dispatch({type: 'RESET', data: itemList});
+    setSelectedTime([]);
     setSelectedItem(i);
     setSelectedTime([]);
   };
@@ -67,18 +66,16 @@ export const ItemReservation = () => {
     }
     
     setReservedTime(selectedTime);
+    setSelectedTime([]);
   };
   
   const onReset = () => {
     setName('');
   };
   
-  return (
-    <Container>
+  return (<Container>
       <Items>
-        {itemList.map((item, i) => (
-          <Item key={i} item={item} onClick={onClickItem}/>
-        ))}
+        {itemList.map((item, i) => (<Item key={i} item={item} onClick={onClickItem}/>))}
       </Items>
       <TimeTableBox>
         <SelectCover>
@@ -98,8 +95,7 @@ export const ItemReservation = () => {
         </InputCover>
         <Button text="예약하기" onClick={onClickReservation}/>
       </TimeTableBox>
-    </Container>
-  );
+    </Container>);
 };
 
 const Container = styled.div`
@@ -117,7 +113,7 @@ const Items = styled.div`
   gap: 20px;
   margin: 20px 30px 20px 10px;
 
-  @media (max-width: 1528px) {
+  @media (max-width: 1600px) {
     grid-template-columns: repeat(3, 1fr);
   }
 

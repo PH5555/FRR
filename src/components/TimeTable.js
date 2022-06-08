@@ -23,7 +23,7 @@ export const TimeTable = (props) => {
 
   useEffect(() => {
     setTimetable(getTimeTable());
-  });
+  }, [setTimetable, getTimeTable, item, selectedTime, reservedTime]);
 
   const timeList = time.map((t, i) => {
     const r = (10 + i) % 12;

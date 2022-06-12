@@ -1,21 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { dummyTimeTable, time } from "../constants/sample";
+import { dummyTimeTable, emptyTime } from "../constants/index";
 import { TimeBox } from "../components/TimeBox";
 import styled from "styled-components";
 
 export const TimeTable = (props) => {
-  const { item, table, selectedTime, reservedTime, onClick } = props;
+  const { item, table, selectedTime, onClick } = props;
   const getTimeTable = () => {
-    const t = table ? table : dummyTimeTable;
+    const t = table ? table : dummyTimeTable();
 
-    // 선택되어있는 경우 선택으로 변경
     selectedTime.map((time) => {
       t[time.day].selected[time.time] = true;
     });
-
-    reservedTime.map((time) => {
-      t[time.day].reserved[time.time] = true;
-    });
+    
     return t;
   };
 
@@ -26,7 +22,7 @@ export const TimeTable = (props) => {
     setTimetable(t);
   }, [table, item]);
 
-  const timeList = time.map((t, i) => {
+  const timeList = emptyTime.map((t, i) => {
     const r = (10 + i) % 12;
     return r === 0 ? 12 : r;
   });

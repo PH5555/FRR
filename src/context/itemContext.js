@@ -3,49 +3,31 @@ import React, {
   useContext,
   useReducer
 } from 'react';
-import { dummyTimeTable } from "../constants/sample";
+import {
+  dayList,
+  dummyTimeTable
+} from "../constants/index";
 
-const initialState = [{name: '', img: '', timeTable: dummyTimeTable}];
+const initialState = [{name: '', img: '', timeTable: dummyTimeTable()}];
 
 const init = () => {
-  return [{name: '', img: '', timeTable: dummyTimeTable}];
+  return initialState;
 };
 
 const setTimeTable = (timeTable) => {
-  const newTimeTable = {
-    mon: {reserved: Array(13).fill(false), selected: Array(13).fill(false)},
-    tue: {reserved: Array(13).fill(false), selected: Array(13).fill(false)},
-    wed: {reserved: Array(13).fill(false), selected: Array(13).fill(false)},
-    thu: {reserved: Array(13).fill(false), selected: Array(13).fill(false)},
-    fri: {reserved: Array(13).fill(false), selected: Array(13).fill(false)},
-  }
-  // console.log(timeTable)
-  timeTable.mon.forEach(v => {
-    newTimeTable.mon.reserved[v] = true;
-  });
-  timeTable.tue.forEach(v => {
-    newTimeTable.tue.reserved[v] = true;
-  });
-  timeTable.wed.forEach(v => {
-    newTimeTable.wed.reserved[v] = true;
-  });
-  timeTable.thu.forEach(v => {
-    newTimeTable.thu.reserved[v] = true;
-  });
-  timeTable.fri.forEach(v => {
-    newTimeTable.fri.reserved[v] = true;
-  });
+  const newTimeTable = dummyTimeTable();
   
+  dayList.forEach(day => {
+    timeTable[day].forEach(v => {
+      newTimeTable[day].reserved[v] = true;
+    })
+  })
   return newTimeTable;
 };
 
 const resetSelected = (state) => {
   return state.map(s => {
-    s.timeTable.mon.selected = Array(13).fill(false);
-    s.timeTable.tue.selected = Array(13).fill(false);
-    s.timeTable.wed.selected = Array(13).fill(false);
-    s.timeTable.thu.selected = Array(13).fill(false);
-    s.timeTable.fri.selected = Array(13).fill(false);
+    dayList.forEach(day => s.timeTable[day].selected = Array(13).fill(false));
     return s;
   });
 };

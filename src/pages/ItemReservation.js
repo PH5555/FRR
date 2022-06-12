@@ -2,15 +2,14 @@ import React, {
   useEffect,
   useState
 } from "react";
+import { dayList } from "../constants";
 import {
   useItemDispatch,
   useItemState
 } from "../context/itemContext";
 import {
   getFacultyInfo,
-  reserveFaculty,
-  resetFaculty,
-  resetSeat
+  reserveFaculty
 } from "../firebase";
 import { TimeTable } from "../components/TimeTable";
 import { Button } from "../components/Button";
@@ -30,7 +29,6 @@ export const ItemReservation = () => {
   
   const fetch = async () => {
     const newItems = await getFacultyInfo();
-    console.log(newItems)
     dispatch({type: 'GET_ITEMS', data: newItems});
   };
   
@@ -43,17 +41,28 @@ export const ItemReservation = () => {
   }, [state]);
   
   const onClickTable = (day, time) => {
-    // todo - 물품(item) 선택 안되었을때 시간표 누르면 선택 안되도록 수정
     selectedItem === "" ? alert("물품 먼저 선택해주세요.") : setSelectedTime(selectedTime.concat({day, time}));
   };
   
   const onClickItem = (name) => {
     const i = itemList.find((i) => i.name === name);
-    dispatch({type: 'RESET', data: itemList});
     setSelectedItem(i);
     setSelectedTime([]);
-    // setReservedTime([]);
+    setReservedTime(getReserved(i));
   };
+  
+  const getReserved = (item) => {
+    const reserved = [];
+    const t = item.timeTable;
+    dayList.forEach(day =>
+      t[day].reserved.forEach((r, index) => {
+        if (r) {
+          reserved.push({day , time: index});
+        }
+      })
+    );
+    return reserved;
+  }
   
   const onChange = (event) => {
     setName(event.target.value);
@@ -69,6 +78,7 @@ export const ItemReservation = () => {
       alert("시간을 선택해주세요");
       return;
     }
+    
     dispatch({type: 'UPDATE_ITEM', data: {item: selectedItem, time: selectedTime}});
     const reserved = reservedTime.concat(selectedTime);
     setReservedTime(reserved);
@@ -80,7 +90,7 @@ export const ItemReservation = () => {
       wed: [],
       thu: [],
       fri: []
-    }
+    };
     reserved.forEach(t => dateTime[t.day].push(t.time));
     reserveFaculty(name, dateTime, selectedItem.name);
   };
@@ -104,7 +114,6 @@ export const ItemReservation = () => {
           item={selectedItem}
           table={selectedItem.timeTable}
           selectedTime={selectedTime}
-          reservedTime={reservedTime}
           onClick={onClickTable}
         />
         <InputCover>

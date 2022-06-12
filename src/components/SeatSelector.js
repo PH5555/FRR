@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
 import styled from "styled-components";
@@ -13,11 +13,24 @@ export const SeatSelector = (props) => {
     setName('');
   };
   
+  const seatName = () => {
+    if (selected === 0) return 'A1';
+    if (selected === 1) return 'B1';
+    if (selected === 2) return 'A2';
+    if (selected === 3) return 'B2';
+    if (selected === 4) return 'A3';
+    if (selected === 5) return 'B3';
+    if (selected === 6) return 'A4';
+    if (selected === 7) return 'B4';
+    if (selected === 8) return 'A5';
+    if (selected === 9) return 'B5';
+  }
+  
   return (
     <Container>
       <Text>선택한 좌석:</Text>
       <SelectedBox>
-        <TextBoxWithBorder text={selected} size="small"/>
+        <TextBoxWithBorder text={seatName()} size="small"/>
       </SelectedBox>
       <Text>신청자 이름:</Text>
       <SelectedBox>

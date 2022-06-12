@@ -13,7 +13,17 @@ import {
   doc
 } from "firebase/firestore";
 
-const firebaseApp = initializeApp({
+const firebaseConfig = {
+  piKey: "AIzaSyCctb1o1eNhA3k1Ps5bfF0RzVi1qkivhow",
+  authDomain: "test-6d01b.firebaseapp.com",
+  projectId: "test-6d01b",
+  storageBucket: "test-6d01b.appspot.com",
+  messagingSenderId: "276798933825",
+  appId: "1:276798933825:web:b1af2d6eeb30f091e56fc0",
+  measurementId: "G-W0XTSWDCHP"
+};
+
+const config = {
   piKey: "AIzaSyAkJrPoYX8dV76_2YCrWkV10CqNXnQ-oXc",
   authDomain: "frr-branch.firebaseapp.com",
   projectId: "frr-branch",
@@ -21,7 +31,9 @@ const firebaseApp = initializeApp({
   messagingSenderId: "746974135008",
   appId: "1:746974135008:web:aefeb21f3ac06ac0b80685",
   measurementId: "G-JKNDVYQ66N"
-});
+};
+
+const firebaseApp = initializeApp(config);
 
 const db = getFirestore(firebaseApp);
 
@@ -33,6 +45,7 @@ async function getFacultyInfo() {
 
 async function getSeatInfo() {
   const seatCol = collection(db, 'seat_reservation');
+  getDocs(seatCol).then(a => console.log(a)).catch(a => console.log(a))
   const seatSnapshot = await getDocs(seatCol);
   return seatSnapshot.docs.map(doc => doc.data());
 }

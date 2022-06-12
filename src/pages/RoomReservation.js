@@ -1,51 +1,56 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect
+} from "react";
+import {
+  useSeatDispatch,
+  useSeatState
+} from "../context/SeatContext";
+import {
+  getSeatInfo,
+  reserveSeat
+} from "../firebase";
 import { SeatSelector } from "../components/SeatSelector";
 import { SeatStatus } from "../components/SeatStatus";
 import styled from "styled-components";
 
-
 export const RoomReservation = () => {
-
   const [name, setName] = useState('');
   const [selected, setSelected] = useState('');
-
-
-  const [seatColor, setseatColor] = useState(['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff']);
-
-  const onClickSeat = (event, id) => {
-    const changeId = id;
-    if(selected !== '' && selected !== id) {
-      alert("좌석은 1개만 선택 가능합니다.");
-      return;
-    }
-    const newArr = seatColor;
-    newArr[id] = (newArr[id] === '#fff' ? 'red' : '#fff');
-    setseatColor(newArr);
-    setSelected(changeId);
-    if (seatColor[id] === "#282828") {
-      alert("이미 예약된 좌석입니다.");
-      return;
-    }
-    if (seatColor[id] === "#fff"){
-      setSelected('');
-    }
-  }
+  
+  const state = useSeatState();
+  const dispatch = useSeatDispatch();
+  const [seatList, setSeatList] = useState(state);
+  
+  const fetch = async () => {
+    const seats = await getSeatInfo();
+    dispatch({type: 'GET_SEATS', data: seats});
+  };
+  
   useEffect(() => {
-
-  }, [seatColor]);
-
-
-
+    fetch();
+  }, []);
+  
+  useEffect(() => {
+    setSeatList(state);
+  }, [state]);
+  
   const onClickReservation = () => {
-    // todo - 예약하기 버튼 눌렀을때 기능 구현 - 일단 클릭되게 실현해놨음, 후에 서버 저장하는 거 추가해야 함
-  }
-
+    dispatch({type: 'RESERVE_SEAT', data: {name: name, seatNumber: selected}});
+    setSelected('');
+    setName('');
+    reserveSeat(name, selected);
+  };
+  
   return (
     <Container>
       <Cover>
-        <SeatStatus onClick={onClickSeat} seatColor={seatColor} />
-        <SeatSelector selected={selected} name={name} setName={setName} clickEvent={onClickReservation}
+        <SeatStatus
+          selected={selected}
+          setSelected={setSelected}
+          reserved={seatList}
         />
+        <SeatSelector selected={selected} name={name} setName={setName} clickEvent={onClickReservation}/>
       </Cover>
     </Container>
   );

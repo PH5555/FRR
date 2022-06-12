@@ -5,12 +5,14 @@ import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
 import { Item } from "../components/Item";
 import styled from "styled-components";
+import { getFacultyInfo } from "../firebase";
 
 export const ItemReservation = () => {
   const [selectedItem, setSelectedItem] = useState("");
   const [selectedTime, setSelectedTime] = useState([]);
   const [reservedTime, setReservedTime] = useState([]);
   const [name, setName] = useState("");
+  const [items, getitems] = useState([]);
 
   const onClickTable = (day, time) => {
     // todo - 물품(item) 선택 안되었을때 시간표 누르면 선택 안되도록 수정
@@ -43,18 +45,43 @@ export const ItemReservation = () => {
     setReservedTime(selectedTime);
   };
 
-  const items = itemData.map((item) => {
-    // 선택된 칸 초기화
-    return {
-      ...item,
-      timeTable: {
-        mon: { reserved: item.timeTable.mon, selected: Array(13).fill(false) },
-        tue: { reserved: item.timeTable.tue, selected: Array(13).fill(false) },
-        wed: { reserved: item.timeTable.wed, selected: Array(13).fill(false) },
-        thu: { reserved: item.timeTable.thu, selected: Array(13).fill(false) },
-        fri: { reserved: item.timeTable.fri, selected: Array(13).fill(false) },
-      },
-    };
+  const fillTrueFalse = (data) => {
+    const arrayTrueFalse = Array(13).fill(false);
+    for (const dateBlock of data) {
+      arrayTrueFalse[dateBlock] = true;
+    }
+    return arrayTrueFalse;
+  };
+
+  getFacultyInfo().then((elements) => {
+    elements.map((element) => {
+      return {
+        ...element,
+        dateTime: {
+          mon: {
+            reserved: fillTrueFalse(element.dateTime.mon),
+            selected: Array(13).fill(false),
+          },
+          tue: {
+            reserved: fillTrueFalse(element.dateTime.tue),
+            selected: Array(13).fill(false),
+          },
+          wed: {
+            reserved: fillTrueFalse(element.dateTime.wed),
+            selected: Array(13).fill(false),
+          },
+          thu: {
+            reserved: fillTrueFalse(element.dateTime.thu),
+            selected: Array(13).fill(false),
+          },
+          fri: {
+            reserved: fillTrueFalse(element.dateTime.fri),
+            selected: Array(13).fill(false),
+          },
+        },
+      };
+    });
+    getitems(elements);
   });
 
   return (

@@ -33,8 +33,8 @@ export const TimeBox = (props) => {
 const Block = styled.div`
   background-color: ${(props) => props.bg};
   border: 2px solid #282828;
-  width: 101px;
-  height: 35px;
+  width: 90px;
+  height: 30px;
 
   &:hover {
     cursor: pointer;

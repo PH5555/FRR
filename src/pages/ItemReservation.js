@@ -44,7 +44,6 @@ export const ItemReservation = () => {
   const onClickItem = (name) => {
     const i = itemList.find((i) => i.name === name);
     dispatch({type: 'RESET', data: itemList});
-    setSelectedTime([]);
     setSelectedItem(i);
     setSelectedTime([]);
   };
@@ -73,7 +72,8 @@ export const ItemReservation = () => {
     setName('');
   };
   
-  return (<Container>
+  return (
+    <Container>
       <Items>
         {itemList.map((item, i) => (<Item key={i} item={item} onClick={onClickItem}/>))}
       </Items>
@@ -85,6 +85,7 @@ export const ItemReservation = () => {
         <Text style={{marginBottom: "20px"}}>사용날짜 선택: </Text>
         <TimeTable
           item={selectedItem}
+          table={selectedItem.timeTable}
           selectedTime={selectedTime}
           reservedTime={reservedTime}
           onClick={onClickTable}
@@ -95,7 +96,8 @@ export const ItemReservation = () => {
         </InputCover>
         <Button text="예약하기" onClick={onClickReservation}/>
       </TimeTableBox>
-    </Container>);
+    </Container>
+  );
 };
 
 const Container = styled.div`
@@ -104,7 +106,7 @@ const Container = styled.div`
   z-index: 1;
   min-height: 1080px;
   min-width: 1090px;
-  padding: 30px;
+  padding: 15px;
 `;
 
 const Items = styled.div`
@@ -139,7 +141,7 @@ const SelectCover = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 80px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 `;
 
 const InputCover = styled.div`
@@ -147,5 +149,5 @@ const InputCover = styled.div`
   align-items: center;
   justify-content: space-between;
   width: 280px;
-  margin: 30px 0;
+  margin: 20px 0;
 `;

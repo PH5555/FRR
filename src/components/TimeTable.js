@@ -4,9 +4,9 @@ import { TimeBox } from "../components/TimeBox";
 import styled from "styled-components";
 
 export const TimeTable = (props) => {
-  const { item, selectedTime, reservedTime, onClick } = props;
+  const { item, table, selectedTime, reservedTime, onClick } = props;
   const getTimeTable = () => {
-    const t = item.timeTable ? item.timeTable : dummyTimeTable;
+    const t = table ? table : dummyTimeTable;
 
     // 선택되어있는 경우 선택으로 변경
     selectedTime.map((time) => {
@@ -22,14 +22,15 @@ export const TimeTable = (props) => {
   const [timeTable, setTimetable] = useState(getTimeTable());
 
   useEffect(() => {
-    setTimetable(getTimeTable());
-  }, [setTimetable, getTimeTable, item, selectedTime, reservedTime]);
+    const t = getTimeTable();
+    setTimetable(t);
+  }, [table, item]);
 
   const timeList = time.map((t, i) => {
     const r = (10 + i) % 12;
     return r === 0 ? 12 : r;
   });
-
+  console.log(timeTable)
   return (
     <Container>
       <div>
@@ -120,8 +121,8 @@ const Day = styled.div`
   display: flex;
   background-color: transparent;
   border: 2px solid #282828;
-  width: 101px;
-  height: 35px;
+  width: 90px;
+  height: 30px;
   align-items: center;
   justify-content: center;
 `;
@@ -131,7 +132,7 @@ const Time = styled.div`
   background-color: transparent;
   border: 2px solid #282828;
   width: 30px;
-  height: 35px;
+  height: 30px;
   justify-content: end;
   font-size: 12px;
   padding: 3px;

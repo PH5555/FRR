@@ -4,9 +4,7 @@ import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
 import styled from "styled-components";
 
 export const SeatSelector = (props) => {
-  const {selected, name, setName, clickEvent} = props;
-  // const [SeatName, setSeatName] = useState('');
-
+  const {selected, name, setName, clickEvent, button} = props;
   const onChange = (event) => {
     setName(event.target.value);
   }
@@ -36,7 +34,7 @@ export const SeatSelector = (props) => {
           <TextBoxWithBorder text={name} size="mid" onChange={onChange} onReset={onReset} />
         </div>
       </SelectedBox>
-      <Button text="예약하기" onClick={clickEvent}/>
+      <Button text={button} onClick={clickEvent}/>
     </Container>
   );
 }

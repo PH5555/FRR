@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Button = (props) => {
 
-  const { text, onClick } = props;
+  const { text , onClick } = props;
   return (
     <ButtonBox onClick={onClick}>
       <Text>{text}</Text>

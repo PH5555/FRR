@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app"
-import { getFirestore } from "firebase/firestore"
+import { deleteField, getFirestore } from "firebase/firestore"
 import { collection, addDoc } from "firebase/firestore";
 import { updateDoc, getDocs, arrayUnion, where } from "firebase/firestore";
 const firebaseApp = initializeApp({
@@ -38,6 +38,8 @@ async function reserveSeat(pname, seatNumber) {
     console.error("Error adding document: ", e);
   }
 }
+
+
 
 async function reserveFaculty(person, dateTime, item) {
   const query = query(collection(db, "faculty_reservation"), where("name", "==", item));

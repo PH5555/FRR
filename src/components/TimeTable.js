@@ -30,7 +30,6 @@ export const TimeTable = (props) => {
     const r = (10 + i) % 12;
     return r === 0 ? 12 : r;
   });
-  console.log(timeTable)
   return (
     <Container>
       <div>

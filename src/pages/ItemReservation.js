@@ -6,7 +6,12 @@ import {
   useItemDispatch,
   useItemState
 } from "../context/itemContext";
-import { getFacultyInfo } from "../firebase";
+import {
+  getFacultyInfo,
+  reserveFaculty,
+  resetFaculty,
+  resetSeat
+} from "../firebase";
 import { TimeTable } from "../components/TimeTable";
 import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
@@ -25,6 +30,7 @@ export const ItemReservation = () => {
   
   const fetch = async () => {
     const newItems = await getFacultyInfo();
+    console.log(newItems)
     dispatch({type: 'GET_ITEMS', data: newItems});
   };
   
@@ -46,6 +52,7 @@ export const ItemReservation = () => {
     dispatch({type: 'RESET', data: itemList});
     setSelectedItem(i);
     setSelectedTime([]);
+    // setReservedTime([]);
   };
   
   const onChange = (event) => {
@@ -53,7 +60,6 @@ export const ItemReservation = () => {
   };
   
   const onClickReservation = () => {
-    // todo - 예약하기 버튼 눌렀을 때 기능 구현
     if (name === "") {
       alert("신청자 이름을 입력해주세요");
       return;
@@ -63,9 +69,20 @@ export const ItemReservation = () => {
       alert("시간을 선택해주세요");
       return;
     }
-    
-    setReservedTime(selectedTime);
+    dispatch({type: 'UPDATE_ITEM', data: {item: selectedItem, time: selectedTime}});
+    const reserved = reservedTime.concat(selectedTime);
+    setReservedTime(reserved);
     setSelectedTime([]);
+    
+    const dateTime = {
+      mon: [],
+      tue: [],
+      wed: [],
+      thu: [],
+      fri: []
+    }
+    reserved.forEach(t => dateTime[t.day].push(t.time));
+    reserveFaculty(name, dateTime, selectedItem.name);
   };
   
   const onReset = () => {

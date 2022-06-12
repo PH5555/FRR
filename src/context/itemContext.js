@@ -19,7 +19,7 @@ const setTimeTable = (timeTable) => {
     thu: {reserved: Array(13).fill(false), selected: Array(13).fill(false)},
     fri: {reserved: Array(13).fill(false), selected: Array(13).fill(false)},
   }
-  
+  // console.log(timeTable)
   timeTable.mon.forEach(v => {
     newTimeTable.mon.reserved[v] = true;
   });
@@ -53,18 +53,28 @@ const resetSelected = (state) => {
 const itemReducer = (state, action) => {
   switch (action.type) {
     case 'GET_ITEMS': {
-      const newState = action.data.map((data) => {
+      return action.data.map((data) => {
         return {
           img: data.image,
           name: data.name,
           timeTable: setTimeTable(data.dateTime)
         };
       });
-      console.log(newState)
-      return newState;
     }
-    case 'UPDATE_ITEM':
+    case 'UPDATE_ITEM': {
+      let index;
+      state.forEach((item, i) => {
+        if (item.name === action.data.item.name) {
+          index = i;
+        }
+      });
+      const newTable = state[index].timeTable;
+      action.data.time.map((data) => {
+        newTable[data.day].reserved[data.time] = true;
+      });
+      state[index].timeTable = newTable;
       return state;
+    }
     case 'RESET': {
       return resetSelected(state);
     }

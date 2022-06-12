@@ -1,7 +1,18 @@
 import { initializeApp } from "firebase/app"
 import { getFirestore } from "firebase/firestore"
-import { collection, addDoc } from "firebase/firestore";
-import { updateDoc, getDocs, arrayUnion, where } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  getDocs,
+  arrayUnion,
+  setDoc,
+  where,
+  query,
+  doc
+} from "firebase/firestore";
+
 const firebaseApp = initializeApp({
   piKey: "AIzaSyAkJrPoYX8dV76_2YCrWkV10CqNXnQ-oXc",
   authDomain: "frr-branch.firebaseapp.com",
@@ -24,7 +35,30 @@ async function getSeatInfo() {
   const seatCol = collection(db, 'seat_reservation');
   const seatSnapshot = await getDocs(seatCol);
   return seatSnapshot.docs.map(doc => doc.data());
+}
 
+async function resetFaculty() {
+  const facultyCol = collection(db, 'faculty_reservation');
+  const facultySnapshot = await getDocs(facultyCol);
+  const dateTime = {
+    mon: [],
+    tue: [],
+    wed: [],
+    thu: [],
+    fri: []
+  }
+  facultySnapshot.docs.forEach(doc => {
+    const data = doc.data();
+    setDoc(doc.ref, {...data, dateTime: dateTime});
+  })
+}
+
+async function resetSeat() {
+  const seatCol = collection(db, 'seat_reservation');
+  const seatSnapshot = await getDocs(seatCol);
+  seatSnapshot.docs.forEach(doc => {
+    deleteDoc(doc.ref);
+  });
 }
 
 async function reserveSeat(pname, seatNumber) {
@@ -40,32 +74,21 @@ async function reserveSeat(pname, seatNumber) {
 }
 
 async function reserveFaculty(person, dateTime, item) {
-  const query = query(collection(db, "faculty_reservation"), where("name", "==", item));
-  const querysnapshot = await getDocs(query);
+  const q = query(collection(db, "faculty_reservation"), where("name", "==", item));
+  const querysnapshot = await getDocs(q);
   let id;
   querysnapshot.forEach((doc) => {
     id = doc.id;
   });
-  const doc = doc(db, "faculty_reservation", id);
-  await updateDoc(doc, { dateTime, personName: arrayUnion(person) });
+  const document = doc(db, "faculty_reservation", id);
+  await updateDoc(document, {dateTime, personName: arrayUnion(person)});
 }
 
-async function setFaculty() {
-  const query = query(collection(db, "faculty_reservation"), where("image", "==", ""));
-  const querysnapshot = await getDocs(query);
-  let id;
-  let dateTime = {
-    mon: [],
-    tue: [],
-    wed: [],
-    thu: [],
-    fri: []
-  }
-  querysnapshot.forEach((doc) => {
-    id = doc.id;
-  });
-  let doc = doc(db, "faculty_reservation", id);
-  await updateDoc(doc, { dateTime });
-}
-
-export { getFacultyInfo, getSeatInfo, reserveFaculty, reserveSeat, setFaculty };
+export {
+  getFacultyInfo,
+  getSeatInfo,
+  reserveFaculty,
+  reserveSeat,
+  resetFaculty,
+  resetSeat
+};

@@ -1,6 +1,6 @@
 import React from "react";
 import { SeatProvider } from "./context/SeatContext";
-import { ItemProvider } from "./context/itemContext";
+import { ItemProvider } from "src/context/ItemContext";
 import roomImg from "./assets/roomImg.png";
 import styled from "styled-components";
 import { GlobalCSS } from "./components/GlobalCSS";

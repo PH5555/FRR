@@ -29,7 +29,7 @@ export const RoomReservation = () => {
   };
   
   useEffect(() => {
-    if (!fetched) {
+    if (!fetched && state.length === 0) {
       fetch();
       setFetched(true);
     }

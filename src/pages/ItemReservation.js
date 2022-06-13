@@ -34,7 +34,7 @@ export const ItemReservation = () => {
   };
   
   useEffect(() => {
-    if (!fetched) {
+    if (!fetched && itemList.length === 1) {
       fetch();
       setFetched(true);
     }

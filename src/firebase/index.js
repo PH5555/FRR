@@ -46,7 +46,6 @@ async function getFacultyInfo() {
 
 async function getSeatInfo() {
   const seatCol = collection(db, 'seat_reservation');
-  getDocs(seatCol).then(a => console.log(a)).catch(a => console.log(a))
   const seatSnapshot = await getDocs(seatCol);
   return seatSnapshot.docs.map(doc => doc.data());
 }

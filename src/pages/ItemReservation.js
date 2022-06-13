@@ -6,7 +6,7 @@ import { dayList } from "../constants";
 import {
   useItemDispatch,
   useItemState
-} from "src/context/ItemContext";
+} from "../context/ItemContext";
 import {
   getFacultyInfo,
   reserveFaculty

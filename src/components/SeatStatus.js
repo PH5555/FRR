@@ -1,5 +1,5 @@
 import React from "react";
-import { cancelSeat } from "src/firebase";
+import { cancelSeat } from "../firebase";
 import { useSeatDispatch } from "../context/SeatContext";
 import { Seat } from "../components/Seat";
 import { Table } from "../components/Table";

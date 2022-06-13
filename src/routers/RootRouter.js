@@ -14,12 +14,14 @@ import {
 } from "../constants/domain";
 
 export const RootRouter = () => {
-  return (<BrowserRouter>
+  return (
+    <BrowserRouter>
       <Header/>
       <Routes>
         <Route exact path="/" element={<Home/>}/>
         <Route exact path={RoomReservationDomain} element={<RoomReservation/>}/>
         <Route exact path={ItemReservationDomain} element={<ItemReservation/>}/>
       </Routes>
-    </BrowserRouter>);
+    </BrowserRouter>
+  );
 }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { SeatSelector } from "../components/SeatSelector";
 import { SeatStatus } from "../components/SeatStatus";
 import styled from "styled-components";
-import { getSeatInfo, reserveSeat } from "../firebase";
+import { getSeatInfo, reserveSeat, deleteSeat } from "../firebase";
 
 export const RoomReservation = () => {
 
@@ -74,7 +74,8 @@ useEffect(getData, []);
   reserveSeat(name, selected);
   alert("예약되었습니다. 사용 종료 후 꼭 취소하기를 눌러주세요.")
     }if(button == '취소하기'){
-  //deleteSeat(name, selected);
+  deleteSeat(name, selected);
+  console.log(name);
   alert("취소되었습니다.");
     }
     }

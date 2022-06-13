@@ -4,16 +4,7 @@ import React, {
   useReducer
 } from 'react';
 
-const initialState = [
-  {
-    personName: 'yerin',
-    seatNumber: 1
-  },
-  {
-    personName: 'yerin',
-    seatNumber: 3
-  }
-];
+const initialState = [];
 
 const init = () => {
   return initialState;

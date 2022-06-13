@@ -4,10 +4,12 @@ import { SeatStatus } from "../components/SeatStatus";
 import styled from "styled-components";
 import { getSeatInfo, reserveSeat } from "../firebase";
 
-//데이터를 불러와서 비교한 다음에 색깔은 바뀌는데 이게 바로 첫 화면에 적용이 안 되고 다른데를 눌러야 적용이 됩니다! 이걸 고쳐야 할 것 같아여...
 export const RoomReservation = () => {
+
 let SeatData =['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff'];
+
 const promise = getSeatInfo();
+
 const getData = () => {
 promise.then((appData) => {
   for(let i = 0 ; i < appData.length; i++){
@@ -31,16 +33,16 @@ promise.then((appData) => {
       SeatData[8] = "#282828";
     }
   }
+setseatColor({...SeatData});
 });
-}
-
+};
+useEffect(getData, []);
 
   const [name, setName] = useState('');
   const [selected, setSelected] = useState('');
   const [seatColor, setseatColor] = useState(SeatData);
   const [button, setButton] = useState('예약하기');
 
-  console.log(seatColor);
   const onClickSeat = (event, id) => {
     const changeId = id;
     if(selected !== '' && selected !== id) {
@@ -50,6 +52,7 @@ promise.then((appData) => {
     if (seatColor[id] == "#282828") {
       setSelected(changeId);
       setButton('취소하기');
+      setName(prompt("취소하려면 이름을 입력하세요", ""));
       return;
     }
     setButton('예약하기');
@@ -60,6 +63,7 @@ promise.then((appData) => {
     if (seatColor[id] === "#fff"){
       setSelected('');
     }
+    console.log(seatColor);
   }
   useEffect(() => {
 
@@ -68,13 +72,13 @@ promise.then((appData) => {
   const onClickReservation = () => {
     if(button == '예약하기'){
   reserveSeat(name, selected);
-    }if(button == '취소하기' && name == "user"){
-  //예약취소 기능
-  //사용자 이름 어케 비ㅛ교할까여..? ㅎㅎ 
+  alert("예약되었습니다. 사용 종료 후 꼭 취소하기를 눌러주세요.")
+    }if(button == '취소하기'){
+  //deleteSeat(name, selected);
+  alert("취소되었습니다.");
     }
     }
   
-
 
   return (
     <Container>

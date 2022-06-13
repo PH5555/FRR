@@ -3,13 +3,13 @@ import { deleteField, getFirestore } from "firebase/firestore"
 import { collection, addDoc } from "firebase/firestore";
 import { updateDoc, getDocs, arrayUnion, where } from "firebase/firestore";
 const firebaseApp = initializeApp({
-  piKey: "AIzaSyAkJrPoYX8dV76_2YCrWkV10CqNXnQ-oXc",
-  authDomain: "frr-branch.firebaseapp.com",
-  projectId: "frr-branch",
-  storageBucket: "frr-branch.appspot.com",
-  messagingSenderId: "746974135008",
-  appId: "1:746974135008:web:aefeb21f3ac06ac0b80685",
-  measurementId: "G-JKNDVYQ66N"
+    piKey: "AIzaSyCctb1o1eNhA3k1Ps5bfF0RzVi1qkivhow",
+    authDomain: "test-6d01b.firebaseapp.com",
+    projectId: "test-6d01b",
+    storageBucket: "test-6d01b.appspot.com",
+    messagingSenderId: "276798933825",
+    appId: "1:276798933825:web:b1af2d6eeb30f091e56fc0",
+    measurementId: "G-W0XTSWDCHP"
 });
 
 const db = getFirestore(firebaseApp);

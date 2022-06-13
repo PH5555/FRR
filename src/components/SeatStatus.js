@@ -1,4 +1,5 @@
 import React from "react";
+import { cancelSeat } from "src/firebase";
 import { useSeatDispatch } from "../context/SeatContext";
 import { Seat } from "../components/Seat";
 import { Table } from "../components/Table";
@@ -23,7 +24,7 @@ export const SeatStatus = (props) => {
       if (input === name) {
         alert("취소되었습니다.");
         dispatch({type: 'CANCEL_SEAT', data: seatNumber});
-        // 취소 api
+        cancelSeat(name, seatNumber);
         return;
       }
       alert("신청자 이름이 일치하지 않습니다.");

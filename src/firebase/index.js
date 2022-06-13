@@ -5,6 +5,7 @@ import {
   addDoc,
   updateDoc,
   deleteDoc,
+  getDoc,
   getDocs,
   arrayUnion,
   setDoc,
@@ -75,15 +76,30 @@ async function resetSeat() {
 }
 
 async function reserveSeat(pname, seatNumber) {
-  try {
-    const docRef = await addDoc(collection(db, "seat_reservation"), {
-      personName: pname,
-      seatNumber: seatNumber
-    });
-    console.log("Document written with ID: ", docRef.id);
-  } catch (e) {
-    console.error("Error adding document: ", e);
+  const seatCol = collection(db, 'seat_reservation');
+  const q = query(seatCol, where('seatNumber', "==", seatNumber));
+  const querysnapshot = await getDocs(q);
+  if (querysnapshot.docs.length) {
+    throw "duplicated seat";
   }
+  addDoc(seatCol, {
+    personName: pname,
+    seatNumber: seatNumber
+  });
+}
+
+async function cancelSeat(name, seatNumber) {
+  const seatCol = collection(db, 'seat_reservation');
+  const q = query(seatCol, where('seatNumber', "==", seatNumber));
+  const querysnapshot = await getDocs(q);
+  if (querysnapshot.docs.length === 0) {
+    throw "not exist seat";
+  }
+  const document = querysnapshot.docs[0];
+  if (document.data().personName !== name) {
+    throw "reservation person's name is not correct";
+  }
+  deleteDoc(document.ref);
 }
 
 async function reserveFaculty(person, dateTime, item) {
@@ -103,5 +119,6 @@ export {
   reserveFaculty,
   reserveSeat,
   resetFaculty,
-  resetSeat
+  resetSeat,
+  cancelSeat
 };

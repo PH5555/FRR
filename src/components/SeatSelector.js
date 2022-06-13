@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
 import styled from "styled-components";
 
 export const SeatSelector = (props) => {
-  const {selected, name, setName} = props;
-  
+  const {selected, name, setName, clickEvent} = props;
   const onChange = (event) => {
     setName(event.target.value);
   }
+  
+  const onReset = () => {
+    setName('');
+  };
   
   return (
     <Container>
@@ -19,10 +22,10 @@ export const SeatSelector = (props) => {
       <Text>신청자 이름:</Text>
       <SelectedBox>
         <div>
-          <TextBoxWithBorder text={name} size="mid" onChange={onChange}/>
+          <TextBoxWithBorder text={name} size="mid" onChange={onChange} onReset={onReset} />
         </div>
       </SelectedBox>
-      <Button text="예약하기"/>
+      <Button text="예약하기" onClick={clickEvent}/>
     </Container>
   );
 }

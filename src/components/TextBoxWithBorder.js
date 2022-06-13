@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ReactComponent as CloseSvg } from "../assets/close.svg";
 
 export const TextBoxWithBorder = (props) => {
-  const {text, onChange} = props;
+  const {text, onChange, onReset} = props;
   
   const getSize = () => {
     if (props.size === 'small') {
@@ -19,15 +19,11 @@ export const TextBoxWithBorder = (props) => {
   const width = getSize();
   const textWidth = width - 50;
   
-  const onClickClose = () => {
-    // todo - close 버튼 눌렀을때 내용 삭제 기능 구현
-  }
-  
   return (
     <Block width={width}>
       <Text value={text || ""} width={textWidth} onChange={onChange} disabled={disabled}/>
       <SvgCover>
-        <CloseSvg/>
+        <CloseSvg onClick={onReset}/>
       </SvgCover>
     </Block>
   );

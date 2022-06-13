@@ -1,5 +1,7 @@
 import { initializeApp } from "firebase/app"
+
 import { getFirestore, QueryDocumentSnapshot } from "firebase/firestore"
+
 import {
   collection,
   addDoc,
@@ -70,6 +72,23 @@ async function deleteSeat(name,seatNumber) {
 }
 
 
+
+async function resetFaculty() {
+  const facultyCol = collection(db, 'faculty_reservation');
+  const facultySnapshot = await getDocs(facultyCol);
+  const dateTime = {
+    mon: [],
+    tue: [],
+    wed: [],
+    thu: [],
+    fri: []
+  }
+  facultySnapshot.docs.forEach(doc => {
+    const data = doc.data();
+    setDoc(doc.ref, {...data, dateTime: dateTime});
+  })
+}
+
 async function resetSeat() {
   const seatCol = collection(db, 'seat_reservation');
   const seatSnapshot = await getDocs(seatCol);
@@ -113,6 +132,8 @@ export {
   reserveFaculty,
   reserveSeat,
   resetFaculty,
+
   resetSeat,
   deleteSeat
+
 };

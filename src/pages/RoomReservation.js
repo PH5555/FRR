@@ -21,6 +21,7 @@ export const RoomReservation = () => {
   const state = useSeatState();
   const dispatch = useSeatDispatch();
   const [seatList, setSeatList] = useState(state);
+  const [fetched, setFetched] = useState(false);
   
   const fetch = async () => {
     const seats = await getSeatInfo();
@@ -28,7 +29,10 @@ export const RoomReservation = () => {
   };
   
   useEffect(() => {
-    fetch();
+    if (!fetched) {
+      fetch();
+      setFetched(true);
+    }
   }, []);
   
   useEffect(() => {

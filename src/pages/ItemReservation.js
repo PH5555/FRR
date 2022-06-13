@@ -26,6 +26,7 @@ export const ItemReservation = () => {
   const state = useItemState();
   const dispatch = useItemDispatch();
   const [itemList, setItemList] = useState(state);
+  const [fetched, setFetched] = useState(false);
   
   const fetch = async () => {
     const newItems = await getFacultyInfo();
@@ -33,7 +34,10 @@ export const ItemReservation = () => {
   };
   
   useEffect(() => {
-    fetch();
+    if (!fetched) {
+      fetch();
+      setFetched(true);
+    }
   }, []);
   
   useEffect(() => {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { itemData } from "../constants/sample";
 import { TimeTable } from "../components/TimeTable";
 import { Button } from "../components/Button";
@@ -52,12 +52,10 @@ export const ItemReservation = () => {
     }
     return arrayTrueFalse;
   };
-
-  getFacultyInfo().then((elements) => {
-    elements.map((element) => {
-      return {
-        ...element,
-        dateTime: {
+  useEffect(() => {
+    getFacultyInfo().then((elements) => {
+      elements.map((element) => {
+        element.dateTime = {
           mon: {
             reserved: fillTrueFalse(element.dateTime.mon),
             selected: Array(13).fill(false),
@@ -78,11 +76,11 @@ export const ItemReservation = () => {
             reserved: fillTrueFalse(element.dateTime.fri),
             selected: Array(13).fill(false),
           },
-        },
-      };
+        };
+      });
+      getitems(elements);
     });
-    getitems(elements);
-  });
+  }, []);
 
   return (
     <Container>

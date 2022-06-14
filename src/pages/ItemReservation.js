@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  getFacultyInfo,
-  reserveFaculty
-} from "../firebase";
+import { getFacultyInfo, reserveFaculty } from "../firebase";
 import { TimeTable } from "../components/TimeTable";
 import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
@@ -15,7 +12,6 @@ export const ItemReservation = () => {
   const [reservedTime, setReservedTime] = useState([]);
   const [name, setName] = useState("");
   const [items, getItems] = useState([]);
-  
   
   const fillTrueFalse = (data) => {
     const arrayTrueFalse = Array(13).fill(false);

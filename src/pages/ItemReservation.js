@@ -25,6 +25,7 @@ export const ItemReservation = () => {
     const i = items.find((i) => i.name === name);
     setSelectedItem(i);
     setSelectedTime([]);
+    setReservedTime([]);
   };
 
   const onChange = (event) => {

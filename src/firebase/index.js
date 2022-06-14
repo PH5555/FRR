@@ -1,7 +1,17 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { collection, addDoc } from "firebase/firestore";
-import { updateDoc, getDocs, arrayUnion, where } from "firebase/firestore";
+import { deleteField, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+  getDocs,
+  arrayUnion,
+  setDoc,
+  where,
+  query,
+  doc,
+} from "firebase/firestore";
 const firebaseApp = initializeApp({
   piKey: "AIzaSyCctb1o1eNhA3k1Ps5bfF0RzVi1qkivhow",
   authDomain: "test-6d01b.firebaseapp.com",
@@ -39,11 +49,11 @@ async function reserveSeat(pname, seatNumber) {
 }
 
 async function reserveFaculty(person, dateTime, item) {
-  const query = query(
+  const queryReserve = query(
     collection(db, "faculty_reservation"),
     where("name", "==", item)
   );
-  const querysnapshot = await getDocs(query);
+  const querysnapshot = await getDocs(queryReserve);
   let id;
   querysnapshot.forEach((doc) => {
     id = doc.id;

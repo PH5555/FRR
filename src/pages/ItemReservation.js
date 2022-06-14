@@ -68,8 +68,8 @@ export const ItemReservation = () => {
       thu: giveNumber(selectedItem.dateTime.thu.reserved, "thu"),
       fri: giveNumber(selectedItem.dateTime.fri.reserved, "fri"),
     };
-
-    reserveFaculty(name, editDatetime, selectedItem.name).then();
+    console.log([String(name)], editDatetime, String(selectedItem.name));
+    reserveFaculty([String(name)], editDatetime, String(selectedItem.name));
   };
 
   const fillTrueFalse = (data) => {
@@ -82,6 +82,7 @@ export const ItemReservation = () => {
   useEffect(() => {
     getFacultyInfo().then((elements) => {
       elements.map((element) => {
+        console.log(element.personName, element.dateTime, element.name);
         element.dateTime = {
           mon: {
             reserved: fillTrueFalse(element.dateTime.mon),

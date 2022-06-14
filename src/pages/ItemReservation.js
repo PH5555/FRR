@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
+import {
+  getFacultyInfo,
+  reserveFaculty
+} from "../firebase";
 import { TimeTable } from "../components/TimeTable";
 import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
 import { Item } from "../components/Item";
 import styled from "styled-components";
-import { getFacultyInfo, reserveFaculty } from "../firebase/index";
 
 export const ItemReservation = () => {
   const [selectedItem, setSelectedItem] = useState("");

@@ -25,7 +25,6 @@ const firebaseApp = initializeApp({
 const db = getFirestore(firebaseApp);
 
 async function getFacultyInfo() {
-  console.log("getinfo");
   const facultyCol = collection(db, "faculty_reservation");
   const facultySnapshot = await getDocs(facultyCol);
   return facultySnapshot.docs.map((doc) => doc.data());

@@ -4,15 +4,54 @@ import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
 import { Item } from "../components/Item";
 import styled from "styled-components";
-import { getFacultyInfo, reserveFaculty } from "../firebase/index.js";
+import { getFacultyInfo, reserveFaculty } from "../firebase/index";
 
 export const ItemReservation = () => {
   const [selectedItem, setSelectedItem] = useState("");
   const [selectedTime, setSelectedTime] = useState([]);
   const [reservedTime, setReservedTime] = useState([]);
   const [name, setName] = useState("");
-  const [items, getitems] = useState([]);
-
+  const [items, getItems] = useState([]);
+  
+  
+  const fillTrueFalse = (data) => {
+    const arrayTrueFalse = Array(13).fill(false);
+    for (const dateBlock of data) {
+      arrayTrueFalse[dateBlock] = true;
+    }
+    return arrayTrueFalse;
+  };
+  
+  useEffect(() => {
+    getFacultyInfo().then((elements) => {
+      elements.map((element) => {
+        element.dateTime = {
+          mon: {
+            reserved: fillTrueFalse(element.dateTime.mon),
+            selected: Array(13).fill(false),
+          },
+          tue: {
+            reserved: fillTrueFalse(element.dateTime.tue),
+            selected: Array(13).fill(false),
+          },
+          wed: {
+            reserved: fillTrueFalse(element.dateTime.wed),
+            selected: Array(13).fill(false),
+          },
+          thu: {
+            reserved: fillTrueFalse(element.dateTime.thu),
+            selected: Array(13).fill(false),
+          },
+          fri: {
+            reserved: fillTrueFalse(element.dateTime.fri),
+            selected: Array(13).fill(false),
+          },
+        };
+      });
+      getItems(elements);
+    });
+  }, []);
+  
   const onClickTable = (day, time) => {
     console.log("onclicktable");
     const onClickItem = (name) => {
@@ -44,7 +83,7 @@ export const ItemReservation = () => {
         const empty = [];
 
         selectedTime.map((time) => {
-          if (time.day == date && !empty.includes(time.time)) {
+          if (time.day === date && !empty.includes(time.time)) {
             empty.push(time.time);
           }
         });
@@ -66,45 +105,6 @@ export const ItemReservation = () => {
       console.log([String(name)], editDatetime, String(selectedItem.name));
       reserveFaculty([String(name)], editDatetime, String(selectedItem.name));
     };
-
-    const fillTrueFalse = (data) => {
-      const arrayTrueFalse = Array(13).fill(false);
-      for (const dateBlock of data) {
-        arrayTrueFalse[dateBlock] = true;
-      }
-      return arrayTrueFalse;
-    };
-    useEffect(() => {
-      getFacultyInfo().then((elements) => {
-        console.log(elements);
-        elements.map((element) => {
-          console.log(element.personName, element.dateTime, element.name);
-          element.dateTime = {
-            mon: {
-              reserved: fillTrueFalse(element.dateTime.mon),
-              selected: Array(13).fill(false),
-            },
-            tue: {
-              reserved: fillTrueFalse(element.dateTime.tue),
-              selected: Array(13).fill(false),
-            },
-            wed: {
-              reserved: fillTrueFalse(element.dateTime.wed),
-              selected: Array(13).fill(false),
-            },
-            thu: {
-              reserved: fillTrueFalse(element.dateTime.thu),
-              selected: Array(13).fill(false),
-            },
-            fri: {
-              reserved: fillTrueFalse(element.dateTime.fri),
-              selected: Array(13).fill(false),
-            },
-          };
-        });
-        getitems(elements);
-      });
-    }, []);
 
     return (
       <Container>

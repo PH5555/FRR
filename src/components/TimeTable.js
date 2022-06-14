@@ -5,8 +5,9 @@ import styled from "styled-components";
 
 export const TimeTable = (props) => {
   const { item, selectedTime, reservedTime, onClick } = props;
+
   const getTimeTable = () => {
-    const t = item.timeTable ? item.timeTable : dummyTimeTable;
+    const t = item.dateTime ? item.dateTime : dummyTimeTable;
 
     // 선택되어있는 경우 선택으로 변경
     selectedTime.map((time) => {
@@ -23,7 +24,7 @@ export const TimeTable = (props) => {
 
   useEffect(() => {
     setTimetable(getTimeTable());
-  });
+  }, [item]);
 
   const timeList = time.map((t, i) => {
     const r = (10 + i) % 12;

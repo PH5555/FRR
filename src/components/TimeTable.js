@@ -5,6 +5,7 @@ import styled from "styled-components";
 
 export const TimeTable = (props) => {
   const { item, selectedTime, reservedTime, onClick } = props;
+
   const getTimeTable = () => {
     const t = item.dateTime ? item.dateTime : dummyTimeTable;
 
@@ -23,7 +24,7 @@ export const TimeTable = (props) => {
 
   useEffect(() => {
     setTimetable(getTimeTable());
-  }, []);
+  }, [item]);
 
   const timeList = time.map((t, i) => {
     const r = (10 + i) % 12;

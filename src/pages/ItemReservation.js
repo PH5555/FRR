@@ -53,87 +53,90 @@ export const ItemReservation = () => {
   
   const onClickTable = (day, time) => {
     console.log("onclicktable");
-    const onClickItem = (name) => {
-      console.log("onclickitem");
-      const i = items.find((i) => i.name === name);
-      setSelectedItem(i);
-      setSelectedTime([]);
-      setReservedTime([]);
-    };
-
-    const onChange = (event) => {
-      setName(event.target.value);
-    };
-
-    const onClickReservation = () => {
-      // todo - 예약하기 버튼 눌렀을 때 기능 구현
-      if (name === "") {
-        alert("신청자 이름을 입력해주세요");
-        return;
-      }
-
-      if (selectedTime.length === 0) {
-        alert("시간을 선택해주세요");
-        return;
-      }
-      setReservedTime(selectedTime);
-
-      const giveNumber = (data, date) => {
-        const empty = [];
-
-        selectedTime.map((time) => {
-          if (time.day === date && !empty.includes(time.time)) {
-            empty.push(time.time);
-          }
-        });
-
-        data.map((reserveFact, i) => {
-          if (reserveFact && !empty.includes(i)) {
-            empty.push(i);
-          }
-        });
-        return empty;
-      };
-      const editDatetime = {
-        mon: giveNumber(selectedItem.dateTime.mon.reserved, "mon"),
-        tue: giveNumber(selectedItem.dateTime.tue.reserved, "tue"),
-        wed: giveNumber(selectedItem.dateTime.wed.reserved, "wed"),
-        thu: giveNumber(selectedItem.dateTime.thu.reserved, "thu"),
-        fri: giveNumber(selectedItem.dateTime.fri.reserved, "fri"),
-      };
-      console.log([String(name)], editDatetime, String(selectedItem.name));
-      reserveFaculty([String(name)], editDatetime, String(selectedItem.name));
-    };
-
-    return (
-      <Container>
-        <Items>
-          {items.map((item, i) => (
-            <Item key={i} item={item} onClick={onClickItem} />
-          ))}
-        </Items>
-        <TimeTableBox>
-          <SelectCover>
-            <Text>선택한 물품: </Text>
-            <TextBoxWithBorder text={selectedItem.name} />
-          </SelectCover>
-          <Text style={{ marginBottom: "20px" }}>사용날짜 선택: </Text>
-          <TimeTable
-            item={selectedItem}
-            selectedTime={selectedTime}
-            reservedTime={reservedTime}
-            onClick={onClickTable}
-          />
-          <InputCover>
-            <Text>신청자 이름: </Text>
-            <TextBoxWithBorder text={name} onChange={onChange} />
-          </InputCover>
-          <Button text="예약하기" onClick={onClickReservation} />
-        </TimeTableBox>
-      </Container>
-    );
   };
+  
+  const onClickItem = (name) => {
+    console.log("onclickitem");
+    const i = items.find((i) => i.name === name);
+    setSelectedItem(i);
+    setSelectedTime([]);
+    setReservedTime([]);
+  };
+  
+  const onChange = (event) => {
+    setName(event.target.value);
+  };
+  
+  const onClickReservation = () => {
+    // todo - 예약하기 버튼 눌렀을 때 기능 구현
+    if (name === "") {
+      alert("신청자 이름을 입력해주세요");
+      return;
+    }
+    
+    if (selectedTime.length === 0) {
+      alert("시간을 선택해주세요");
+      return;
+    }
+    setReservedTime(selectedTime);
+    
+    const giveNumber = (data, date) => {
+      const empty = [];
+      
+      selectedTime.map((time) => {
+        if (time.day === date && !empty.includes(time.time)) {
+          empty.push(time.time);
+        }
+      });
+      
+      data.map((reserveFact, i) => {
+        if (reserveFact && !empty.includes(i)) {
+          empty.push(i);
+        }
+      });
+      return empty;
+    };
+    
+    const editDatetime = {
+      mon: giveNumber(selectedItem.dateTime.mon.reserved, "mon"),
+      tue: giveNumber(selectedItem.dateTime.tue.reserved, "tue"),
+      wed: giveNumber(selectedItem.dateTime.wed.reserved, "wed"),
+      thu: giveNumber(selectedItem.dateTime.thu.reserved, "thu"),
+      fri: giveNumber(selectedItem.dateTime.fri.reserved, "fri"),
+    };
+    console.log([String(name)], editDatetime, String(selectedItem.name));
+    reserveFaculty([String(name)], editDatetime, String(selectedItem.name));
+  };
+  
+  return (
+    <Container>
+      <Items>
+        {items.map((item, i) => (
+          <Item key={i} item={item} onClick={onClickItem} />
+        ))}
+      </Items>
+      <TimeTableBox>
+        <SelectCover>
+          <Text>선택한 물품: </Text>
+          <TextBoxWithBorder text={selectedItem.name} />
+        </SelectCover>
+        <Text style={{ marginBottom: "20px" }}>사용날짜 선택: </Text>
+        <TimeTable
+          item={selectedItem}
+          selectedTime={selectedTime}
+          reservedTime={reservedTime}
+          onClick={onClickTable}
+        />
+        <InputCover>
+          <Text>신청자 이름: </Text>
+          <TextBoxWithBorder text={name} onChange={onChange} />
+        </InputCover>
+        <Button text="예약하기" onClick={onClickReservation} />
+      </TimeTableBox>
+    </Container>
+  );
 };
+
 const Container = styled.div`
   display: flex;
   background-color: #000000;

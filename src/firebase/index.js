@@ -25,6 +25,7 @@ const firebaseApp = initializeApp({
 const db = getFirestore(firebaseApp);
 
 async function getFacultyInfo() {
+  console.log("getinfo");
   const facultyCol = collection(db, "faculty_reservation");
   const facultySnapshot = await getDocs(facultyCol);
   return facultySnapshot.docs.map((doc) => doc.data());
@@ -36,7 +37,53 @@ async function getSeatInfo() {
   return seatSnapshot.docs.map((doc) => doc.data());
 }
 
+async function deleteSeat(name, seatNumber) {
+  const seatCol = collection(db, "seat_reservation");
+  const q = query(seatCol, where("seatNumber", "==", seatNumber));
+  const querysnapshot = await getDocs(q);
+  if (querysnapshot.docs.length === 0) {
+    throw "not exist seat";
+  }
+  const document = querysnapshot.docs[0];
+  if (document.data().personName !== name) {
+    throw "Reservation person`s name is not correct";
+  }
+  deleteDoc(document.ref);
+}
+
+async function resetFaculty() {
+  const facultyCol = collection(db, "faculty_reservation");
+  const facultySnapshot = await getDocs(facultyCol);
+  const dateTime = {
+    mon: [],
+    tue: [],
+    wed: [],
+    thu: [],
+    fri: [],
+  };
+  facultySnapshot.docs.forEach((doc) => {
+    const data = doc.data();
+    setDoc(doc.ref, { ...data, dateTime: dateTime });
+  });
+}
+
+async function resetSeat() {
+  const seatCol = collection(db, "seat_reservation");
+  const seatSnapshot = await getDocs(seatCol);
+  seatSnapshot.docs.forEach((doc) => {
+    deleteDoc(doc.ref);
+  });
+}
+
 async function reserveSeat(pname, seatNumber) {
+  const q = query(
+    collection(db, "seat_reservation"),
+    where("seatNumber", "==", seatNumber)
+  );
+  const querysnapshot = await getDocs(q);
+  if (querysnapshot.docs.length !== 0) {
+    throw "Already reserved";
+  }
   try {
     const docRef = await addDoc(collection(db, "seat_reservation"), {
       personName: pname,
@@ -49,38 +96,25 @@ async function reserveSeat(pname, seatNumber) {
 }
 
 async function reserveFaculty(person, dateTime, item) {
-  const queryReserve = query(
+  const q = query(
     collection(db, "faculty_reservation"),
     where("name", "==", item)
   );
-  const querysnapshot = await getDocs(queryReserve);
+  const querysnapshot = await getDocs(q);
   let id;
   querysnapshot.forEach((doc) => {
     id = doc.id;
   });
-  const doc = doc(db, "faculty_reservation", id);
-  await updateDoc(doc, { dateTime, personName: arrayUnion(person) });
+  const document = doc(db, "faculty_reservation", id);
+  await updateDoc(document, { dateTime, personName: arrayUnion(person) });
 }
 
-async function setFaculty() {
-  const query = query(
-    collection(db, "faculty_reservation"),
-    where("image", "==", "")
-  );
-  const querysnapshot = await getDocs(query);
-  let id;
-  let dateTime = {
-    mon: [],
-    tue: [],
-    wed: [],
-    thu: [],
-    fri: [],
-  };
-  querysnapshot.forEach((doc) => {
-    id = doc.id;
-  });
-  let doc = doc(db, "faculty_reservation", id);
-  await updateDoc(doc, { dateTime });
-}
-
-export { getFacultyInfo, getSeatInfo, reserveFaculty, reserveSeat, setFaculty };
+export {
+  getFacultyInfo,
+  getSeatInfo,
+  reserveFaculty,
+  reserveSeat,
+  resetFaculty,
+  resetSeat,
+  deleteSeat,
+};

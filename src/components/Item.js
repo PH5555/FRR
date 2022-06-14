@@ -2,25 +2,25 @@ import React from "react";
 import styled from "styled-components";
 
 export const Item = (props) => {
-  const {item, onClick} = props;
+  const { item, onClick } = props;
   return (
     <Container onClick={() => onClick(item.name)}>
-      <Img src={item.img}/>
+      <Img src={item.img} />
       <Text>{item.name}</Text>
     </Container>
   );
-}
+};
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   max-width: 170px;
   max-height: 250px;
   margin: 10px 20px;
   border-radius: 8px;
   padding: 10px 30px 20px 30px;
-  
+
   &:hover {
     cursor: pointer;
   }

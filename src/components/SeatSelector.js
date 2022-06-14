@@ -1,28 +1,40 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
 import styled from "styled-components";
 
 export const SeatSelector = (props) => {
-  const {selected, name, setName} = props;
-  
+  const {selected, name, setName, clickEvent, button} = props;
   const onChange = (event) => {
     setName(event.target.value);
   }
+
+  let seat = '';
+  if(selected == ''){
+    seat = '';
+  }else if(selected % 2 == 0){
+    seat = 'A' + (parseInt(selected / 2) + 1);
+  }else{
+    seat = 'B' + (parseInt(selected / 2) + 1);
+  }
+  
+  const onReset = () => {
+    setName('');
+  };
   
   return (
     <Container>
       <Text>선택한 좌석:</Text>
       <SelectedBox>
-        <TextBoxWithBorder text={selected} size="small"/>
+        <TextBoxWithBorder text={seat} size="small"/>
       </SelectedBox>
       <Text>신청자 이름:</Text>
       <SelectedBox>
         <div>
-          <TextBoxWithBorder text={name} size="mid" onChange={onChange}/>
+          <TextBoxWithBorder text={name} size="mid" onChange={onChange} onReset={onReset} />
         </div>
       </SelectedBox>
-      <Button text="예약하기"/>
+      <Button text={button} onClick={clickEvent}/>
     </Container>
   );
 }

@@ -5,7 +5,7 @@ import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
 import { Item } from "../components/Item";
 import styled from "styled-components";
-import { getFacultyInfo } from "../firebase";
+import { getFacultyInfo, reserveFaculty } from "../firebase";
 
 export const ItemReservation = () => {
   const [selectedItem, setSelectedItem] = useState("");
@@ -44,6 +44,33 @@ export const ItemReservation = () => {
       return;
     }
     setReservedTime(selectedTime);
+
+    const giveNumber = (data, date) => {
+      const empty = [];
+
+      selectedTime.map((time) => {
+        if (time.day == date && !empty.includes(time.time)) {
+          empty.push(time.time);
+        }
+      });
+
+      data.map((reserveFact, i) => {
+        if (reserveFact && !empty.includes(i)) {
+          empty.push(i);
+        }
+      });
+      return empty;
+    };
+    const editDatetime = {
+      mon: giveNumber(selectedItem.dateTime.mon.reserved, "mon"),
+      tue: giveNumber(selectedItem.dateTime.tue.reserved, "tue"),
+      wed: giveNumber(selectedItem.dateTime.wed.reserved, "wed"),
+      thu: giveNumber(selectedItem.dateTime.thu.reserved, "thu"),
+      fri: giveNumber(selectedItem.dateTime.fri.reserved, "fri"),
+    };
+    console.log(editDatetime);
+
+    //reserveFaculty(name,editDatetime,selectedItem.name);
   };
 
   const fillTrueFalse = (data) => {

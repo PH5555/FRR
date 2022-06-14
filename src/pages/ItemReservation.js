@@ -68,9 +68,8 @@ export const ItemReservation = () => {
       thu: giveNumber(selectedItem.dateTime.thu.reserved, "thu"),
       fri: giveNumber(selectedItem.dateTime.fri.reserved, "fri"),
     };
-    console.log(editDatetime);
 
-    //reserveFaculty(name,editDatetime,selectedItem.name);
+    reserveFaculty(name, editDatetime, selectedItem.name).then();
   };
 
   const fillTrueFalse = (data) => {

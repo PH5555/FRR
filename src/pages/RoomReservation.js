@@ -14,7 +14,9 @@ import { SeatSelector } from "../components/SeatSelector";
 import { SeatStatus } from "../components/SeatStatus";
 import styled from "styled-components";
 
+
 export const RoomReservation = () => {
+
   const [name, setName] = useState('');
   const [selected, setSelected] = useState('');
   

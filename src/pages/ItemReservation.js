@@ -61,7 +61,7 @@ export const ItemReservation = () => {
     dayList.forEach(day =>
       t[day].reserved.forEach((r, index) => {
         if (r) {
-          reserved.push({day , time: index});
+          reserved.push({day, time: index});
         }
       })
     );

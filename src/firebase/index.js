@@ -14,16 +14,6 @@ import {
   doc
 } from "firebase/firestore";
 
-const firebaseConfig = {
-  piKey: "AIzaSyCctb1o1eNhA3k1Ps5bfF0RzVi1qkivhow",
-  authDomain: "test-6d01b.firebaseapp.com",
-  projectId: "test-6d01b",
-  storageBucket: "test-6d01b.appspot.com",
-  messagingSenderId: "276798933825",
-  appId: "1:276798933825:web:b1af2d6eeb30f091e56fc0",
-  measurementId: "G-W0XTSWDCHP"
-};
-
 const config = {
   piKey: "AIzaSyAkJrPoYX8dV76_2YCrWkV10CqNXnQ-oXc",
   authDomain: "frr-branch.firebaseapp.com",

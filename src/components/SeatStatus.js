@@ -28,7 +28,7 @@ export const SeatStatus = (props) => {
       </ExplainCover>
       <Line/>
       <SeatContainer>
-        <div style={{margin: '0 auto 30px auto'}}>예약하려면 좌석을 예약하세요</div>
+        <div style={{margin: '0 auto 30px auto'}}>예약하려면 좌석을 선택하세요</div>
         <SeatBox>
           <TableCover>
             <Chair style={{padding: 0}}>

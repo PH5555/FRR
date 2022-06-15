@@ -11,8 +11,7 @@ import {
   deleteSeat
 } from "../firebase";
 
-const SeatData = ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff'];
-let deleteName;
+const seatData = ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff'];
 
 export const RoomReservation = () => {
   const promise = getSeatInfo();
@@ -20,37 +19,37 @@ export const RoomReservation = () => {
     promise.then((appData) => {
       for (let i = 0; i < appData.length; i++) {
         if (appData[i].seatNumber === '0') {
-          SeatData[0] = "#282828";
+          seatData[0] = "#282828";
         }
         if (appData[i].seatNumber === '1') {
-          SeatData[1] = "#282828";
+          seatData[1] = "#282828";
         }
         if (appData[i].seatNumber === '2') {
-          SeatData[2] = "#282828";
+          seatData[2] = "#282828";
         }
         if (appData[i].seatNumber === '3') {
-          SeatData[3] = "#282828";
+          seatData[3] = "#282828";
         }
         if (appData[i].seatNumber === '4') {
-          SeatData[4] = "#282828";
+          seatData[4] = "#282828";
         }
         if (appData[i].seatNumber === '5') {
-          SeatData[5] = "#282828";
+          seatData[5] = "#282828";
         }
         if (appData[i].seatNumber === '6') {
-          SeatData[6] = "#282828";
+          seatData[6] = "#282828";
         }
         if (appData[i].seatNumber === '7') {
-          SeatData[7] = "#282828";
+          seatData[7] = "#282828";
         }
         if (appData[i].seatNumber === '8') {
-          SeatData[8] = "#282828";
+          seatData[8] = "#282828";
         }
         if (appData[i].seatNumber === '9') {
-          SeatData[9] = "#282828";
+          seatData[9] = "#282828";
         }
       }
-      setseatColor({...SeatData});
+      setSeatColor({...seatData});
     });
   };
   
@@ -60,60 +59,61 @@ export const RoomReservation = () => {
   
   const [name, setName] = useState('');
   const [selected, setSelected] = useState('');
-  const [seatColor, setseatColor] = useState(SeatData);
+  const [seatColor, setSeatColor] = useState(seatData);
   const [button, setButton] = useState('예약하기');
   
   const onClickSeat = (event, id) => {
-    const changeId = id;
     if (selected !== '' && selected !== id) {
       alert("좌석은 1개만 선택 가능합니다.");
       return;
     }
+    
     if (seatColor[id] === "#282828") {
-      setSelected(changeId);
+      setSelected(id);
       setButton('취소하기');
-      deleteName = prompt("취소하려면 이름을 입력하세요", null);
+      const deleteName = prompt("취소하려면 이름을 입력하세요", '');
       setName(deleteName);
-      if (deleteName == null) {
+      if (deleteName === '') {
         setSelected('');
       }
       return;
     }
+    
     setButton('예약하기');
     const newArr = seatColor;
-    newArr[id] = (newArr[id] === '#fff' ? 'red' : '#fff');
-    setseatColor(newArr);
-    setSelected(changeId);
+    newArr[id] = (newArr[id] === '#fff' ? '#FF3939' : '#fff');
+    setSeatColor(newArr);
+    setSelected(id);
     if (seatColor[id] === "#fff") {
       setSelected('');
     }
-  }
+  };
   
-  const onClickReservation = () => {
+  const onClickReservation = async () => {
+    if (selected === '' || name === '') {
+      alert("좌석과 이름 모두 입력해주세요.");
+      return;
+    }
+    
     if (button === '예약하기') {
-      if (selected === '' || name === '') {
-        alert("좌석과 이름 모두 입력해주세요.");
-        return;
-      }
-      
       reserveSeat(name, selected);
       seatColor[selected] = "#282828";
-      
       alert("예약되었습니다. 사용 종료 후 꼭 취소하기를 눌러주세요.")
     }
+    
     if (button === '취소하기') {
-      if (selected === '' || name === '') {
-        alert("좌석과 이름 모두 입력해주세요.");
-        return;
+      try {
+        await deleteSeat(name, selected);
+        alert("취소되었습니다.");
+        seatColor[selected] = "#fff";
+      } catch (e) {
+        alert(e)
       }
-      deleteSeat(name, selected);
-      alert("취소되었습니다.");
-      seatColor[selected] = "#fff";
-      
     }
+    
     setSelected('');
     setName('');
-  }
+  };
   
   return (
     <Container>

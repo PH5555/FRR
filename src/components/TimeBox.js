@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 export const TimeBox = (props) => {
-  const { day, time, selected, reserved, text, onClick } = props;
+  const {day, time, selected, reserved, text, onClick} = props;
   const [isSelected, setIsSelected] = useState(selected);
   const setColor = () => {
     if (reserved) {
@@ -14,7 +14,7 @@ export const TimeBox = (props) => {
     return "transparent";
   };
   const color = setColor();
-
+  
   const onClickTime = () => {
     if (selected || reserved) {
       return;
@@ -22,7 +22,7 @@ export const TimeBox = (props) => {
     setIsSelected(!isSelected);
     onClick(day, time);
   };
-
+  
   return (
     <Block bg={color} onClick={onClickTime}>
       {text}

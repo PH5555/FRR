@@ -1,21 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useEffect
+} from "react";
 import { Button } from "../components/Button";
 import { TextBoxWithBorder } from "../components/TextBoxWithBorder";
 import styled from "styled-components";
 
 export const SeatSelector = (props) => {
   const {selected, name, setName, clickEvent, button} = props;
+  
   const onChange = (event) => {
     setName(event.target.value);
-  }
-
-  let seat = '';
-  if(selected == ''){
-    seat = '';
-  }else if(selected % 2 == 0){
-    seat = 'A' + (parseInt(selected / 2) + 1);
-  }else{
-    seat = 'B' + (parseInt(selected / 2) + 1);
+  };
+  
+  const setSeat = () => {
+    if (selected === '') {
+      return '';
+    }
+    if (selected % 2 === 0) {
+      return 'A' + parseInt((selected / 2) + 1);
+    }
+    return 'B' + parseInt((selected / 2) + 1);
   }
   
   const onReset = () => {
@@ -26,12 +31,12 @@ export const SeatSelector = (props) => {
     <Container>
       <Text>선택한 좌석:</Text>
       <SelectedBox>
-        <TextBoxWithBorder text={seat} size="small"/>
+        <TextBoxWithBorder text={setSeat()} size="small"/>
       </SelectedBox>
       <Text>신청자 이름:</Text>
       <SelectedBox>
         <div>
-          <TextBoxWithBorder text={name} size="mid" onChange={onChange} onReset={onReset} />
+          <TextBoxWithBorder text={name} size="mid" onChange={onChange} onReset={onReset}/>
         </div>
       </SelectedBox>
       <Button text={button} onClick={clickEvent}/>

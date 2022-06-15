@@ -3,9 +3,14 @@ import styled from "styled-components";
 
 export const Item = (props) => {
   const { item, onClick } = props;
+  
+  const onClickItem = () => {
+    onClick(item.name);
+  };
+  
   return (
-    <Container onClick={() => onClick(item.name)}>
-      <Img src={item.img} />
+    <Container onClick={onClickItem}>
+      <Img src={item.image} />
       <Text>{item.name}</Text>
     </Container>
   );
@@ -33,5 +38,6 @@ const Text = styled.div`
 
 const Img = styled.img`
   height: 180px;
+  width: 120px;
   margin: auto;
 `;

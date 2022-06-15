@@ -23,7 +23,7 @@ export const GlobalCSS = createGlobalStyle`
     background-color: #000000;
     color: #ffffff;
   }
-  
+
   #root {
     height: 100%;
   }

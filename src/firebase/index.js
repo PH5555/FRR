@@ -1,6 +1,9 @@
 import { initializeApp } from "firebase/app"
-import { deleteField, getFirestore } from "firebase/firestore"
-import { collection,
+import {
+  getFirestore
+} from "firebase/firestore"
+import {
+  collection,
   addDoc,
   updateDoc,
   deleteDoc,
@@ -9,16 +12,20 @@ import { collection,
   setDoc,
   where,
   query,
-  doc } from "firebase/firestore";
-const firebaseApp = initializeApp({
-    piKey: "AIzaSyCctb1o1eNhA3k1Ps5bfF0RzVi1qkivhow",
-    authDomain: "test-6d01b.firebaseapp.com",
-    projectId: "test-6d01b",
-    storageBucket: "test-6d01b.appspot.com",
-    messagingSenderId: "276798933825",
-    appId: "1:276798933825:web:b1af2d6eeb30f091e56fc0",
-    measurementId: "G-W0XTSWDCHP"
-});
+  doc
+} from "firebase/firestore";
+
+const config = {
+  piKey: "AIzaSyAkJrPoYX8dV76_2YCrWkV10CqNXnQ-oXc",
+  authDomain: "frr-branch.firebaseapp.com",
+  projectId: "frr-branch",
+  storageBucket: "frr-branch.appspot.com",
+  messagingSenderId: "746974135008",
+  appId: "1:746974135008:web:aefeb21f3ac06ac0b80685",
+  measurementId: "G-JKNDVYQ66N"
+};
+
+const firebaseApp = initializeApp(config);
 
 const db = getFirestore(firebaseApp);
 
@@ -34,34 +41,25 @@ async function getSeatInfo() {
   return seatSnapshot.docs.map(doc => doc.data());
 }
 
-
-async function deleteSeat(name,seatNumber) {
-  const seatCol=collection(db,"seat_reservation");
+async function deleteSeat(name, seatNumber) {
+  const seatCol = collection(db, "seat_reservation");
   const q = query(seatCol, where("seatNumber", "==", seatNumber));
-  const querysnapshot = await getDocs(q);
-  if(querysnapshot.docs.length===0){
+  const querySnapshot = await getDocs(q);
+  if (querySnapshot.docs.length === 0) {
     throw "not exist seat";
   }
-  const document=querysnapshot.docs[0];
-  if(document.data().personName!==name){
+  const document = querySnapshot.docs[0];
+  if (document.data().personName !== name) {
     throw 'Reservation person`s name is not correct';
   }
   deleteDoc(document.ref);
-  
-  
 }
-
-
 
 async function resetFaculty() {
   const facultyCol = collection(db, 'faculty_reservation');
   const facultySnapshot = await getDocs(facultyCol);
   const dateTime = {
-    mon: [],
-    tue: [],
-    wed: [],
-    thu: [],
-    fri: []
+    mon: [], tue: [], wed: [], thu: [], fri: []
   }
   facultySnapshot.docs.forEach(doc => {
     const data = doc.data();
@@ -77,17 +75,15 @@ async function resetSeat() {
   });
 }
 
-
-async function reserveSeat(pname, seatNumber) {
-  const q=query(collection(db, "seat_reservation"), where("seatNumber", "==", seatNumber));
-  const querysnapshot=await getDocs(q);
-  if(querysnapshot.docs.length!==0){
-    throw"Already reserved";
+async function reserveSeat(person, seatNumber) {
+  const q = query(collection(db, "seat_reservation"), where("seatNumber", "==", seatNumber));
+  const querySnapshot = await getDocs(q);
+  if (querySnapshot.docs.length !== 0) {
+    throw "Already reserved";
   }
   try {
     const docRef = await addDoc(collection(db, "seat_reservation"), {
-      personName: pname,
-      seatNumber: seatNumber
+      personName: person, seatNumber: seatNumber
     });
     console.log("Document written with ID: ", docRef.id);
   } catch (e) {
@@ -95,13 +91,11 @@ async function reserveSeat(pname, seatNumber) {
   }
 }
 
-
-
 async function reserveFaculty(person, dateTime, item) {
   const q = query(collection(db, "faculty_reservation"), where("name", "==", item));
-  const querysnapshot = await getDocs(q);
+  const querySnapshot = await getDocs(q);
   let id;
-  querysnapshot.forEach((doc) => {
+  querySnapshot.forEach((doc) => {
     id = doc.id;
   });
   const document = doc(db, "faculty_reservation", id);
@@ -114,8 +108,6 @@ export {
   reserveFaculty,
   reserveSeat,
   resetFaculty,
-
   resetSeat,
   deleteSeat
-
 };

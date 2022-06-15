@@ -61,6 +61,7 @@ const Text = styled(Link)`
 
 const LogoCover = styled(Link)`
   text-decoration: none;
+
   &:hover {
     cursor: pointer;
   }

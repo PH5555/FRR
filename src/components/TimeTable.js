@@ -1,40 +1,45 @@
-import React, { useEffect, useState } from "react";
-import { dummyTimeTable, time } from "../constants/sample";
+import React, {
+  useEffect,
+  useState
+} from "react";
+import {
+  dummyTimeTable,
+  time
+} from "../constants";
 import { TimeBox } from "../components/TimeBox";
 import styled from "styled-components";
 
 export const TimeTable = (props) => {
-  const { item, selectedTime, reservedTime, onClick } = props;
-
+  const {item, selectedTime, reservedTime, onClick} = props;
+  
   const getTimeTable = () => {
     const t = item.dateTime ? item.dateTime : dummyTimeTable;
-
-    // 선택되어있는 경우 선택으로 변경
+    
     selectedTime.map((time) => {
       t[time.day].selected[time.time] = true;
     });
-
+    
     reservedTime.map((time) => {
       t[time.day].reserved[time.time] = true;
     });
     return t;
   };
-
+  
   const [timeTable, setTimetable] = useState(getTimeTable());
-
+  
   useEffect(() => {
     setTimetable(getTimeTable());
   }, [item]);
-
+  
   const timeList = time.map((t, i) => {
     const r = (10 + i) % 12;
     return r === 0 ? 12 : r;
   });
-
+  
   return (
     <Container>
       <div>
-        <Time />
+        <Time/>
         {timeList.map((t, i) => (
           <Time key={i}>{t}</Time>
         ))}
